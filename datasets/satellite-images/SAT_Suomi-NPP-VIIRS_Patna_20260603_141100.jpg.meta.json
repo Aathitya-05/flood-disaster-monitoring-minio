@@ -1,0 +1,16 @@
+{
+  "Filename": "SAT_Suomi-NPP-VIIRS_Patna_20260603_141100.jpg",
+  "Location": "Patna, Bihar",
+  "District": "Patna",
+  "Coordinates": "25.5941,85.1376",
+  "Flood_Level": "Normal",
+  "Severity": "Low",
+  "Cloud_Cover_Pct": 45.8,
+  "River_Basin": "Ganges River",
+  "Satellite": "Suomi-NPP-VIIRS",
+  "Timestamp": "20260603_141100",
+  "Capture_Date": "2026-06-03",
+  "Resolution_Meters": 250.0,
+  "FileType": "image/jpeg",
+  "Data_Source": "NASA GIBS / Worldview Snapshots API (Real MODIS/VIIRS satellite imagery)"
+}

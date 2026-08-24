@@ -1,0 +1,19 @@
+{
+  "Filename": "UAV_IdeaForge-NETRA-V4_Kolhapur_Sector_1_20260821_150915.mp4",
+  "Location": "Kolhapur, Maharashtra",
+  "District": "Kolhapur",
+  "Coordinates": "16.7159,74.2662",
+  "Drone_ID": "DRONE-KOL-366",
+  "Model": "IdeaForge-NETRA-V4",
+  "Flight_Altitude_M": 129,
+  "Timestamp": "20260821_150915",
+  "Flood_Level": "Moderate",
+  "Severity": "Medium",
+  "FileType": "video/mp4",
+  "Duration_Sec": 5,
+  "Keyframe_Photo_Credit": "Debasmitadeb",
+  "Keyframe_Photo_License": "CC BY-SA 4.0",
+  "Keyframe_Photo_Caption": "Rankala Lake, Kolhapur, Maharashtra",
+  "Keyframe_Data_Source": "Wikimedia Commons (Real Aerial Flood Photograph)",
+  "Video_Source": "ffmpeg-generated pan/zoom clip from the real keyframe photo above (Wikimedia Commons) - not raw drone footage"
+}

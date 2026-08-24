@@ -1,0 +1,19 @@
+{
+  "Filename": "UAV_Autel-EVO-II-Dual_Wayanad_Sector_1_20260821_110632.mp4",
+  "Location": "Wayanad, Kerala",
+  "District": "Wayanad",
+  "Coordinates": "11.7333,76.1318",
+  "Drone_ID": "DRONE-WAY-671",
+  "Model": "Autel-EVO-II-Dual",
+  "Flight_Altitude_M": 129,
+  "Timestamp": "20260821_110632",
+  "Flood_Level": "Critical",
+  "Severity": "Extreme",
+  "FileType": "video/mp4",
+  "Duration_Sec": 5,
+  "Keyframe_Photo_Credit": "Kaippally",
+  "Keyframe_Photo_License": "CC BY-SA 4.0",
+  "Keyframe_Photo_Caption": "Aerial view of Phantom Rock, Wayanad, Kerala",
+  "Keyframe_Data_Source": "Wikimedia Commons (Real Aerial Flood Photograph)",
+  "Video_Source": "ffmpeg-generated pan/zoom clip from the real keyframe photo above (Wikimedia Commons) - not raw drone footage"
+}

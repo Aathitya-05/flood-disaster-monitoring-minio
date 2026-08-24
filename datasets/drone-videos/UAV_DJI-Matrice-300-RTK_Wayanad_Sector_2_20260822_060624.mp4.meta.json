@@ -1,0 +1,19 @@
+{
+  "Filename": "UAV_DJI-Matrice-300-RTK_Wayanad_Sector_2_20260822_060624.mp4",
+  "Location": "Wayanad, Kerala",
+  "District": "Wayanad",
+  "Coordinates": "11.6676,76.1806",
+  "Drone_ID": "DRONE-WAY-560",
+  "Model": "DJI-Matrice-300-RTK",
+  "Flight_Altitude_M": 215,
+  "Timestamp": "20260822_060624",
+  "Flood_Level": "Critical",
+  "Severity": "Extreme",
+  "FileType": "video/mp4",
+  "Duration_Sec": 5,
+  "Keyframe_Photo_Credit": "Kaippally",
+  "Keyframe_Photo_License": "CC BY-SA 4.0",
+  "Keyframe_Photo_Caption": "Aerial view of Phantom Rock, Wayanad, Kerala (verified GPS: 11.6362,76.2045)",
+  "Keyframe_Data_Source": "Wikimedia Commons (Real Aerial Flood Photograph)",
+  "Video_Source": "ffmpeg-generated pan/zoom clip from the real keyframe photo above (Wikimedia Commons) - not raw drone footage"
+}

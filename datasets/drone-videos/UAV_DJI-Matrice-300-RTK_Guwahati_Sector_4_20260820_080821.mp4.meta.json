@@ -1,0 +1,19 @@
+{
+  "Filename": "UAV_DJI-Matrice-300-RTK_Guwahati_Sector_4_20260820_080821.mp4",
+  "Location": "Guwahati, Assam",
+  "District": "Guwahati",
+  "Coordinates": "26.1451,91.7346",
+  "Drone_ID": "DRONE-GUW-987",
+  "Model": "DJI-Matrice-300-RTK",
+  "Flight_Altitude_M": 181,
+  "Timestamp": "20260820_080821",
+  "Flood_Level": "Moderate",
+  "Severity": "Medium",
+  "FileType": "video/mp4",
+  "Duration_Sec": 5,
+  "Keyframe_Photo_Credit": "Wikimedia Commons contributor",
+  "Keyframe_Photo_License": "CC BY-SA 4.0",
+  "Keyframe_Photo_Caption": "Skyline of Guwahati from Nilachal viewpoint, Assam",
+  "Keyframe_Data_Source": "Wikimedia Commons (Real Aerial Flood Photograph)",
+  "Video_Source": "ffmpeg-generated pan/zoom clip from the real keyframe photo above (Wikimedia Commons) - not raw drone footage"
+}

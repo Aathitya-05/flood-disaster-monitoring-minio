@@ -1,0 +1,19 @@
+{
+  "Filename": "UAV_IdeaForge-NETRA-V4_Wayanad_Sector_1_20260821_120645.mp4",
+  "Location": "Wayanad, Kerala",
+  "District": "Wayanad",
+  "Coordinates": "11.6620,76.1537",
+  "Drone_ID": "DRONE-WAY-532",
+  "Model": "IdeaForge-NETRA-V4",
+  "Flight_Altitude_M": 235,
+  "Timestamp": "20260821_120645",
+  "Flood_Level": "Critical",
+  "Severity": "Extreme",
+  "FileType": "video/mp4",
+  "Duration_Sec": 5,
+  "Keyframe_Photo_Credit": "Vinayaraj",
+  "Keyframe_Photo_License": "CC BY-SA 4.0",
+  "Keyframe_Photo_Caption": "Banasura hills viewpoint, Wayanad, Kerala (verified GPS: 11.7094,75.9430)",
+  "Keyframe_Data_Source": "Wikimedia Commons (Real Aerial Flood Photograph)",
+  "Video_Source": "ffmpeg-generated pan/zoom clip from the real keyframe photo above (Wikimedia Commons) - not raw drone footage"
+}

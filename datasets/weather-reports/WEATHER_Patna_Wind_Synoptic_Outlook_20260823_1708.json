@@ -1,0 +1,26 @@
+{
+  "report_id": "WR-PAT-3395",
+  "district": "Patna",
+  "state": "Bihar",
+  "location": "Patna, Bihar",
+  "coordinates": "25.5941,85.1376",
+  "data_source": "Open-Meteo Weather API (open-meteo.com) - live public weather data, no synthetic values",
+  "fetched_at_utc": "2026-08-23T17:08:55.405774+00:00",
+  "report_type": "Wind Synoptic Outlook",
+  "dates": [
+    "2026-08-20",
+    "2026-08-21",
+    "2026-08-22",
+    "2026-08-23",
+    "2026-08-24",
+    "2026-08-25"
+  ],
+  "windspeed_10m_max_kmph": [
+    15.2,
+    10.5,
+    13.6,
+    8.5,
+    16.8,
+    16.5
+  ]
+}

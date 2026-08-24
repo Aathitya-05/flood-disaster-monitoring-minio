@@ -1,0 +1,26 @@
+{
+  "report_id": "WR-GUW-4412",
+  "district": "Guwahati",
+  "state": "Assam",
+  "location": "Guwahati, Assam",
+  "coordinates": "26.1445,91.7362",
+  "data_source": "Open-Meteo Weather API (open-meteo.com) - live public weather data, no synthetic values",
+  "fetched_at_utc": "2026-08-23T17:08:56.314051+00:00",
+  "report_type": "Wind Synoptic Outlook",
+  "dates": [
+    "2026-08-20",
+    "2026-08-21",
+    "2026-08-22",
+    "2026-08-23",
+    "2026-08-24",
+    "2026-08-25"
+  ],
+  "windspeed_10m_max_kmph": [
+    10.5,
+    11.4,
+    10.3,
+    13.3,
+    6.8,
+    9.4
+  ]
+}

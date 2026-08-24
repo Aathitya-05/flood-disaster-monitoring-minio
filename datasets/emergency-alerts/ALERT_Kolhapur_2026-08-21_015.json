@@ -1,0 +1,15 @@
+{
+  "alert_id": "ALERT-20260821-KOL-015",
+  "issued_date": "2026-08-21",
+  "timestamp": "2026-08-21T09:42:00Z",
+  "issuing_authority": "State Disaster Management Authority (Maharashtra)",
+  "district": "Kolhapur",
+  "state": "Maharashtra",
+  "river_basin": "Panchganga River",
+  "alert_code": "FLASH_FLOOD_WARNING",
+  "severity": "Extreme",
+  "flood_level": "Critical",
+  "action_protocol": "Upstream dam sluice gates opened. Rapid flood wave advancing downstream in Kolhapur.",
+  "shelters_active": 16,
+  "affected_population_est": 30567
+}

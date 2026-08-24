@@ -1,0 +1,14 @@
+{
+  "Filename": "SENSOR_IOT-WL-PAT-003_20260823.csv",
+  "Location": "Patna, Bihar",
+  "District": "Patna",
+  "River_Basin": "Ganges River",
+  "Sensor_ID": "IOT-WL-PAT-003",
+  "Timestamp": "20260823",
+  "Max_Water_Level_M": 8.0,
+  "Danger_Mark_M": 6.32,
+  "Flood_Level": "Critical",
+  "Severity": "High",
+  "FileType": "text/csv",
+  "Data_Source": "Open-Meteo Flood API - GloFAS global hydrological model (Real Live Data)"
+}

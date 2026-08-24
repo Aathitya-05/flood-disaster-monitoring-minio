@@ -1,0 +1,16 @@
+{
+  "Filename": "SAT_NOAA20-VIIRS_Guwahati_20260602_211000.jpg",
+  "Location": "Guwahati, Assam",
+  "District": "Guwahati",
+  "Coordinates": "26.1445,91.7362",
+  "Flood_Level": "Moderate",
+  "Severity": "Medium",
+  "Cloud_Cover_Pct": 56.7,
+  "River_Basin": "Brahmaputra River",
+  "Satellite": "NOAA20-VIIRS",
+  "Timestamp": "20260602_211000",
+  "Capture_Date": "2026-06-02",
+  "Resolution_Meters": 250.0,
+  "FileType": "image/jpeg",
+  "Data_Source": "NASA GIBS / Worldview Snapshots API (Real MODIS/VIIRS satellite imagery)"
+}

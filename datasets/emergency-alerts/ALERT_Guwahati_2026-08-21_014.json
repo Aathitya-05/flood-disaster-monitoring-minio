@@ -1,0 +1,15 @@
+{
+  "alert_id": "ALERT-20260821-GUW-014",
+  "issued_date": "2026-08-21",
+  "timestamp": "2026-08-21T17:10:00Z",
+  "issuing_authority": "State Disaster Management Authority (Assam)",
+  "district": "Guwahati",
+  "state": "Assam",
+  "river_basin": "Brahmaputra River",
+  "alert_code": "ORANGE_ALERT",
+  "severity": "High",
+  "flood_level": "Severe",
+  "action_protocol": "NDRF deployment in low-lying wards of Guwahati. Relief shelters operational.",
+  "shelters_active": 14,
+  "affected_population_est": 21825
+}

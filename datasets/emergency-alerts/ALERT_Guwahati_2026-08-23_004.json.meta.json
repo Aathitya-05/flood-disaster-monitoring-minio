@@ -1,0 +1,10 @@
+{
+  "Filename": "ALERT_Guwahati_2026-08-23_004.json",
+  "Alert_ID": "ALERT-20260823-GUW-004",
+  "Location": "Guwahati, Assam",
+  "District": "Guwahati",
+  "Timestamp": "2026-08-23",
+  "Flood_Level": "Critical",
+  "Severity": "Extreme",
+  "FileType": "application/json"
+}

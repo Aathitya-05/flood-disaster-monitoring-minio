@@ -1,0 +1,11 @@
+{
+  "Filename": "WEATHER_Cuttack_Live_Current_Conditions_20260823_1708.json",
+  "Location": "Cuttack, Odisha",
+  "District": "Cuttack",
+  "Timestamp": "20260823_1708",
+  "Flood_Level": "Moderate",
+  "Severity": "Medium",
+  "FileType": "application/json",
+  "Station_ID": "WR-CUT-8895",
+  "Data_Source": "Open-Meteo (Real Live Data)"
+}

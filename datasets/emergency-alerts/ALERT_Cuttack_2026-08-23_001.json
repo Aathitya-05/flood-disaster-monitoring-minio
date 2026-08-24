@@ -1,0 +1,15 @@
+{
+  "alert_id": "ALERT-20260823-CUT-001",
+  "issued_date": "2026-08-23",
+  "timestamp": "2026-08-23T08:23:00Z",
+  "issuing_authority": "State Disaster Management Authority (Odisha)",
+  "district": "Cuttack",
+  "state": "Odisha",
+  "river_basin": "Mahanadi River",
+  "alert_code": "RED_ALERT",
+  "severity": "Extreme",
+  "flood_level": "Critical",
+  "action_protocol": "Immediate evacuation ordered for riverbank residents along Mahanadi River.",
+  "shelters_active": 21,
+  "affected_population_est": 20799
+}

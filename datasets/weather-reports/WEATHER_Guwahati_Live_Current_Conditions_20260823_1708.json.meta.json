@@ -1,0 +1,11 @@
+{
+  "Filename": "WEATHER_Guwahati_Live_Current_Conditions_20260823_1708.json",
+  "Location": "Guwahati, Assam",
+  "District": "Guwahati",
+  "Timestamp": "20260823_1708",
+  "Flood_Level": "Moderate",
+  "Severity": "Medium",
+  "FileType": "application/json",
+  "Station_ID": "WR-GUW-6247",
+  "Data_Source": "Open-Meteo (Real Live Data)"
+}

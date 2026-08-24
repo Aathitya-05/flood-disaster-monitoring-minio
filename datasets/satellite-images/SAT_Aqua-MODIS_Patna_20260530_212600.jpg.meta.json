@@ -1,0 +1,16 @@
+{
+  "Filename": "SAT_Aqua-MODIS_Patna_20260530_212600.jpg",
+  "Location": "Patna, Bihar",
+  "District": "Patna",
+  "Coordinates": "25.5941,85.1376",
+  "Flood_Level": "Normal",
+  "Severity": "Low",
+  "Cloud_Cover_Pct": 52.23,
+  "River_Basin": "Ganges River",
+  "Satellite": "Aqua-MODIS",
+  "Timestamp": "20260530_212600",
+  "Capture_Date": "2026-05-30",
+  "Resolution_Meters": 250.0,
+  "FileType": "image/jpeg",
+  "Data_Source": "NASA GIBS / Worldview Snapshots API (Real MODIS/VIIRS satellite imagery)"
+}

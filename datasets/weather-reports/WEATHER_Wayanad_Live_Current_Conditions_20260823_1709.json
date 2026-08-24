@@ -1,0 +1,17 @@
+{
+  "report_id": "WR-WAY-1651",
+  "district": "Wayanad",
+  "state": "Kerala",
+  "location": "Wayanad, Kerala",
+  "coordinates": "11.6854,76.132",
+  "data_source": "Open-Meteo Weather API (open-meteo.com) - live public weather data, no synthetic values",
+  "fetched_at_utc": "2026-08-23T17:09:13.396408+00:00",
+  "report_type": "Live Current Conditions",
+  "temperature_c": 21.8,
+  "precipitation_mm": 0.0,
+  "rain_mm": 0.0,
+  "pressure_msl_hpa": 1014.6,
+  "wind_speed_kmph": 3.4,
+  "relative_humidity_pct": 93,
+  "cloud_cover_pct": 100
+}

@@ -1,0 +1,10 @@
+{
+  "Filename": "ALERT_Kolhapur_2026-08-22_010.json",
+  "Alert_ID": "ALERT-20260822-KOL-010",
+  "Location": "Kolhapur, Maharashtra",
+  "District": "Kolhapur",
+  "Timestamp": "2026-08-22",
+  "Flood_Level": "Critical",
+  "Severity": "Extreme",
+  "FileType": "application/json"
+}

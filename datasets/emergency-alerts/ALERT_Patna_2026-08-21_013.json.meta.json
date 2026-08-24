@@ -1,0 +1,10 @@
+{
+  "Filename": "ALERT_Patna_2026-08-21_013.json",
+  "Alert_ID": "ALERT-20260821-PAT-013",
+  "Location": "Patna, Bihar",
+  "District": "Patna",
+  "Timestamp": "2026-08-21",
+  "Flood_Level": "Severe",
+  "Severity": "High",
+  "FileType": "application/json"
+}

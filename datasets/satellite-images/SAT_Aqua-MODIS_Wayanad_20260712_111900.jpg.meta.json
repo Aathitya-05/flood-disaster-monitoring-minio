@@ -1,0 +1,16 @@
+{
+  "Filename": "SAT_Aqua-MODIS_Wayanad_20260712_111900.jpg",
+  "Location": "Wayanad, Kerala",
+  "District": "Wayanad",
+  "Coordinates": "11.6854,76.132",
+  "Flood_Level": "Normal",
+  "Severity": "Low",
+  "Cloud_Cover_Pct": 55.29,
+  "River_Basin": "Kabini River",
+  "Satellite": "Aqua-MODIS",
+  "Timestamp": "20260712_111900",
+  "Capture_Date": "2026-07-12",
+  "Resolution_Meters": 250.0,
+  "FileType": "image/jpeg",
+  "Data_Source": "NASA GIBS / Worldview Snapshots API (Real MODIS/VIIRS satellite imagery)"
+}

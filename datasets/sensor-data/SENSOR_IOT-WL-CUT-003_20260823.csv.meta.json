@@ -1,0 +1,14 @@
+{
+  "Filename": "SENSOR_IOT-WL-CUT-003_20260823.csv",
+  "Location": "Cuttack, Odisha",
+  "District": "Cuttack",
+  "River_Basin": "Mahanadi River",
+  "Sensor_ID": "IOT-WL-CUT-003",
+  "Timestamp": "20260823",
+  "Max_Water_Level_M": 8.0,
+  "Danger_Mark_M": 8.3,
+  "Flood_Level": "Moderate",
+  "Severity": "Medium",
+  "FileType": "text/csv",
+  "Data_Source": "Open-Meteo Flood API - GloFAS global hydrological model (Real Live Data)"
+}

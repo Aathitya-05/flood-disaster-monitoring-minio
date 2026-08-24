@@ -1,0 +1,15 @@
+{
+  "alert_id": "ALERT-20260820-WAY-017",
+  "issued_date": "2026-08-20",
+  "timestamp": "2026-08-20T09:36:00Z",
+  "issuing_authority": "State Disaster Management Authority (Kerala)",
+  "district": "Wayanad",
+  "state": "Kerala",
+  "river_basin": "Kabini River",
+  "alert_code": "FLASH_FLOOD_WARNING",
+  "severity": "Extreme",
+  "flood_level": "Critical",
+  "action_protocol": "Upstream dam sluice gates opened. Rapid flood wave advancing downstream in Wayanad.",
+  "shelters_active": 31,
+  "affected_population_est": 40393
+}

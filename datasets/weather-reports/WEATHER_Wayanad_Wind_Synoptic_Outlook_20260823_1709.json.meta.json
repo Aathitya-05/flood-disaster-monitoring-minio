@@ -1,0 +1,11 @@
+{
+  "Filename": "WEATHER_Wayanad_Wind_Synoptic_Outlook_20260823_1709.json",
+  "Location": "Wayanad, Kerala",
+  "District": "Wayanad",
+  "Timestamp": "20260823_1709",
+  "Flood_Level": "Normal",
+  "Severity": "Low",
+  "FileType": "application/json",
+  "Station_ID": "WR-WAY-7822",
+  "Data_Source": "Open-Meteo (Real Live Data)"
+}

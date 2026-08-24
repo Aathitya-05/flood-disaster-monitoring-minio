@@ -1,0 +1,15 @@
+{
+  "alert_id": "ALERT-20260820-KOL-020",
+  "issued_date": "2026-08-20",
+  "timestamp": "2026-08-20T22:14:00Z",
+  "issuing_authority": "State Disaster Management Authority (Maharashtra)",
+  "district": "Kolhapur",
+  "state": "Maharashtra",
+  "river_basin": "Panchganga River",
+  "alert_code": "YELLOW_ALERT",
+  "severity": "Medium",
+  "flood_level": "Moderate",
+  "action_protocol": "Water levels rising above warning mark. Fishermen advised not to venture into Panchganga River.",
+  "shelters_active": 25,
+  "affected_population_est": 42594
+}

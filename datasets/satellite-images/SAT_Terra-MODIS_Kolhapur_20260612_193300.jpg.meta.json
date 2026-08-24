@@ -1,0 +1,16 @@
+{
+  "Filename": "SAT_Terra-MODIS_Kolhapur_20260612_193300.jpg",
+  "Location": "Kolhapur, Maharashtra",
+  "District": "Kolhapur",
+  "Coordinates": "16.705,74.2433",
+  "Flood_Level": "Normal",
+  "Severity": "Low",
+  "Cloud_Cover_Pct": 50.2,
+  "River_Basin": "Panchganga River",
+  "Satellite": "Terra-MODIS",
+  "Timestamp": "20260612_193300",
+  "Capture_Date": "2026-06-12",
+  "Resolution_Meters": 250.0,
+  "FileType": "image/jpeg",
+  "Data_Source": "NASA GIBS / Worldview Snapshots API (Real MODIS/VIIRS satellite imagery)"
+}

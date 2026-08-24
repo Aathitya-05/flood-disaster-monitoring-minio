@@ -1,0 +1,15 @@
+{
+  "alert_id": "ALERT-20260820-GUW-019",
+  "issued_date": "2026-08-20",
+  "timestamp": "2026-08-20T06:38:00Z",
+  "issuing_authority": "State Disaster Management Authority (Assam)",
+  "district": "Guwahati",
+  "state": "Assam",
+  "river_basin": "Brahmaputra River",
+  "alert_code": "RED_ALERT",
+  "severity": "Extreme",
+  "flood_level": "Critical",
+  "action_protocol": "Immediate evacuation ordered for riverbank residents along Brahmaputra River.",
+  "shelters_active": 29,
+  "affected_population_est": 43252
+}

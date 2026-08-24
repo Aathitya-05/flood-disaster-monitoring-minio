@@ -1,0 +1,19 @@
+{
+  "Filename": "UAV_DJI-Matrice-300-RTK_Cuttack_Sector_4_20260822_080554.mp4",
+  "Location": "Cuttack, Odisha",
+  "District": "Cuttack",
+  "Coordinates": "20.4877,85.8524",
+  "Drone_ID": "DRONE-CUT-441",
+  "Model": "DJI-Matrice-300-RTK",
+  "Flight_Altitude_M": 121,
+  "Timestamp": "20260822_080554",
+  "Flood_Level": "Critical",
+  "Severity": "Extreme",
+  "FileType": "video/mp4",
+  "Duration_Sec": 5,
+  "Keyframe_Photo_Credit": "Government of Odisha",
+  "Keyframe_Photo_License": "CC BY 4.0",
+  "Keyframe_Photo_Caption": "Bridge over the Mahanadi River at Gopinathpur, Cuttack, Odisha",
+  "Keyframe_Data_Source": "Wikimedia Commons (Real Aerial Flood Photograph)",
+  "Video_Source": "ffmpeg-generated pan/zoom clip from the real keyframe photo above (Wikimedia Commons) - not raw drone footage"
+}

@@ -1,0 +1,15 @@
+{
+  "alert_id": "ALERT-20260823-WAY-002",
+  "issued_date": "2026-08-23",
+  "timestamp": "2026-08-23T15:11:00Z",
+  "issuing_authority": "State Disaster Management Authority (Kerala)",
+  "district": "Wayanad",
+  "state": "Kerala",
+  "river_basin": "Kabini River",
+  "alert_code": "YELLOW_ALERT",
+  "severity": "Medium",
+  "flood_level": "Moderate",
+  "action_protocol": "Water levels rising above warning mark. Fishermen advised not to venture into Kabini River.",
+  "shelters_active": 35,
+  "affected_population_est": 10046
+}

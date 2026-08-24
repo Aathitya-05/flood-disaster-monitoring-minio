@@ -1,0 +1,19 @@
+{
+  "Filename": "UAV_Autel-EVO-II-Dual_Guwahati_Sector_4_20260821_140824.mp4",
+  "Location": "Guwahati, Assam",
+  "District": "Guwahati",
+  "Coordinates": "26.1121,91.7543",
+  "Drone_ID": "DRONE-GUW-595",
+  "Model": "Autel-EVO-II-Dual",
+  "Flight_Altitude_M": 248,
+  "Timestamp": "20260821_140824",
+  "Flood_Level": "Moderate",
+  "Severity": "Medium",
+  "FileType": "video/mp4",
+  "Duration_Sec": 5,
+  "Keyframe_Photo_Credit": "Nilotpal Hazarika",
+  "Keyframe_Photo_License": "CC BY-SA 4.0",
+  "Keyframe_Photo_Caption": "Brahmaputra River, Guwahati, Assam",
+  "Keyframe_Data_Source": "Wikimedia Commons (Real Aerial Flood Photograph)",
+  "Video_Source": "ffmpeg-generated pan/zoom clip from the real keyframe photo above (Wikimedia Commons) - not raw drone footage"
+}

@@ -1,0 +1,14 @@
+{
+  "Filename": "SENSOR_IOT-WL-WAY-002_20260823.csv",
+  "Location": "Wayanad, Kerala",
+  "District": "Wayanad",
+  "River_Basin": "Kabini River",
+  "Sensor_ID": "IOT-WL-WAY-002",
+  "Timestamp": "20260823",
+  "Max_Water_Level_M": 8.0,
+  "Danger_Mark_M": 5.94,
+  "Flood_Level": "Critical",
+  "Severity": "High",
+  "FileType": "text/csv",
+  "Data_Source": "Open-Meteo Flood API - GloFAS global hydrological model (Real Live Data)"
+}

@@ -1,0 +1,19 @@
+{
+  "Filename": "UAV_DJI-Matrice-300-RTK_Kolhapur_Sector_4_20260822_130840.mp4",
+  "Location": "Kolhapur, Maharashtra",
+  "District": "Kolhapur",
+  "Coordinates": "16.7413,74.2448",
+  "Drone_ID": "DRONE-KOL-653",
+  "Model": "DJI-Matrice-300-RTK",
+  "Flight_Altitude_M": 209,
+  "Timestamp": "20260822_130840",
+  "Flood_Level": "Moderate",
+  "Severity": "Medium",
+  "FileType": "video/mp4",
+  "Duration_Sec": 5,
+  "Keyframe_Photo_Credit": "Koolkrazy (English Wikipedia)",
+  "Keyframe_Photo_License": "Public Domain",
+  "Keyframe_Photo_Caption": "Panchganga River at Kolhapur, Maharashtra",
+  "Keyframe_Data_Source": "Wikimedia Commons (Real Aerial Flood Photograph)",
+  "Video_Source": "ffmpeg-generated pan/zoom clip from the real keyframe photo above (Wikimedia Commons) - not raw drone footage"
+}

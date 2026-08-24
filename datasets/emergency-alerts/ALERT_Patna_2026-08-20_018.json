@@ -1,0 +1,15 @@
+{
+  "alert_id": "ALERT-20260820-PAT-018",
+  "issued_date": "2026-08-20",
+  "timestamp": "2026-08-20T06:50:00Z",
+  "issuing_authority": "State Disaster Management Authority (Bihar)",
+  "district": "Patna",
+  "state": "Bihar",
+  "river_basin": "Ganges River",
+  "alert_code": "FLASH_FLOOD_WARNING",
+  "severity": "Extreme",
+  "flood_level": "Critical",
+  "action_protocol": "Upstream dam sluice gates opened. Rapid flood wave advancing downstream in Patna.",
+  "shelters_active": 13,
+  "affected_population_est": 41298
+}

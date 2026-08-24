@@ -1,0 +1,16 @@
+{
+  "Filename": "SAT_Aqua-MODIS_Kolhapur_20260528_035400.jpg",
+  "Location": "Kolhapur, Maharashtra",
+  "District": "Kolhapur",
+  "Coordinates": "16.705,74.2433",
+  "Flood_Level": "Normal",
+  "Severity": "Low",
+  "Cloud_Cover_Pct": 43.87,
+  "River_Basin": "Panchganga River",
+  "Satellite": "Aqua-MODIS",
+  "Timestamp": "20260528_035400",
+  "Capture_Date": "2026-05-28",
+  "Resolution_Meters": 250.0,
+  "FileType": "image/jpeg",
+  "Data_Source": "NASA GIBS / Worldview Snapshots API (Real MODIS/VIIRS satellite imagery)"
+}

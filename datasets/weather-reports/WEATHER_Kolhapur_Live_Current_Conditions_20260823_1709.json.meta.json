@@ -1,0 +1,11 @@
+{
+  "Filename": "WEATHER_Kolhapur_Live_Current_Conditions_20260823_1709.json",
+  "Location": "Kolhapur, Maharashtra",
+  "District": "Kolhapur",
+  "Timestamp": "20260823_1709",
+  "Flood_Level": "Normal",
+  "Severity": "Low",
+  "FileType": "application/json",
+  "Station_ID": "WR-KOL-1532",
+  "Data_Source": "Open-Meteo (Real Live Data)"
+}

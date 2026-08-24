@@ -1,0 +1,19 @@
+{
+  "Filename": "UAV_IdeaForge-NETRA-V4_Patna_Sector_2_20260823_130731.mp4",
+  "Location": "Patna, Bihar",
+  "District": "Patna",
+  "Coordinates": "25.6005,85.1416",
+  "Drone_ID": "DRONE-PAT-447",
+  "Model": "IdeaForge-NETRA-V4",
+  "Flight_Altitude_M": 247,
+  "Timestamp": "20260823_130731",
+  "Flood_Level": "Moderate",
+  "Severity": "Medium",
+  "FileType": "video/mp4",
+  "Duration_Sec": 5,
+  "Keyframe_Photo_Credit": "Botu Yadav",
+  "Keyframe_Photo_License": "CC BY-SA 4.0",
+  "Keyframe_Photo_Caption": "Gandhi Ghat on the Ganges River, Patna, Bihar",
+  "Keyframe_Data_Source": "Wikimedia Commons (Real Aerial Flood Photograph)",
+  "Video_Source": "ffmpeg-generated pan/zoom clip from the real keyframe photo above (Wikimedia Commons) - not raw drone footage"
+}

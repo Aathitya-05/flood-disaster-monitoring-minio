@@ -1,0 +1,15 @@
+{
+  "alert_id": "ALERT-20260822-WAY-007",
+  "issued_date": "2026-08-22",
+  "timestamp": "2026-08-22T07:49:00Z",
+  "issuing_authority": "State Disaster Management Authority (Kerala)",
+  "district": "Wayanad",
+  "state": "Kerala",
+  "river_basin": "Kabini River",
+  "alert_code": "RED_ALERT",
+  "severity": "Extreme",
+  "flood_level": "Critical",
+  "action_protocol": "Immediate evacuation ordered for riverbank residents along Kabini River.",
+  "shelters_active": 30,
+  "affected_population_est": 27513
+}

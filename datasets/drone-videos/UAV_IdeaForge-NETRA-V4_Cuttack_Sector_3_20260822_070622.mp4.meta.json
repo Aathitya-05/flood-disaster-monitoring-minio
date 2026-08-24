@@ -1,0 +1,19 @@
+{
+  "Filename": "UAV_IdeaForge-NETRA-V4_Cuttack_Sector_3_20260822_070622.mp4",
+  "Location": "Cuttack, Odisha",
+  "District": "Cuttack",
+  "Coordinates": "20.4493,85.8780",
+  "Drone_ID": "DRONE-CUT-178",
+  "Model": "IdeaForge-NETRA-V4",
+  "Flight_Altitude_M": 159,
+  "Timestamp": "20260822_070622",
+  "Flood_Level": "Critical",
+  "Severity": "Extreme",
+  "FileType": "video/mp4",
+  "Duration_Sec": 5,
+  "Keyframe_Photo_Credit": "Deepak Das",
+  "Keyframe_Photo_License": "CC BY 3.0",
+  "Keyframe_Photo_Caption": "Bridge over Mahanadi River north of Cuttack, Odisha (verified GPS: 20.4747,85.9094)",
+  "Keyframe_Data_Source": "Wikimedia Commons (Real Aerial Flood Photograph)",
+  "Video_Source": "ffmpeg-generated pan/zoom clip from the real keyframe photo above (Wikimedia Commons) - not raw drone footage"
+}

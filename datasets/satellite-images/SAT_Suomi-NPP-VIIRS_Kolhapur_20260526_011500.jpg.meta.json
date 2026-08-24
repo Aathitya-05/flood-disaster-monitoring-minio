@@ -1,0 +1,16 @@
+{
+  "Filename": "SAT_Suomi-NPP-VIIRS_Kolhapur_20260526_011500.jpg",
+  "Location": "Kolhapur, Maharashtra",
+  "District": "Kolhapur",
+  "Coordinates": "16.705,74.2433",
+  "Flood_Level": "Normal",
+  "Severity": "Low",
+  "Cloud_Cover_Pct": 36.57,
+  "River_Basin": "Panchganga River",
+  "Satellite": "Suomi-NPP-VIIRS",
+  "Timestamp": "20260526_011500",
+  "Capture_Date": "2026-05-26",
+  "Resolution_Meters": 250.0,
+  "FileType": "image/jpeg",
+  "Data_Source": "NASA GIBS / Worldview Snapshots API (Real MODIS/VIIRS satellite imagery)"
+}

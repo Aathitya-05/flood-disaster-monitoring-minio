@@ -1,0 +1,17 @@
+{
+  "report_id": "WR-GUW-6247",
+  "district": "Guwahati",
+  "state": "Assam",
+  "location": "Guwahati, Assam",
+  "coordinates": "26.1445,91.7362",
+  "data_source": "Open-Meteo Weather API (open-meteo.com) - live public weather data, no synthetic values",
+  "fetched_at_utc": "2026-08-23T17:08:56.314051+00:00",
+  "report_type": "Live Current Conditions",
+  "temperature_c": 27.5,
+  "precipitation_mm": 0.0,
+  "rain_mm": 0.0,
+  "pressure_msl_hpa": 1005.4,
+  "wind_speed_kmph": 7.2,
+  "relative_humidity_pct": 95,
+  "cloud_cover_pct": 88
+}

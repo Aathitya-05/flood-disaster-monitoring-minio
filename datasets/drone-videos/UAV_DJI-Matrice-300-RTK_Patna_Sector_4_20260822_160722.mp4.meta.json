@@ -1,0 +1,19 @@
+{
+  "Filename": "UAV_DJI-Matrice-300-RTK_Patna_Sector_4_20260822_160722.mp4",
+  "Location": "Patna, Bihar",
+  "District": "Patna",
+  "Coordinates": "25.6384,85.1440",
+  "Drone_ID": "DRONE-PAT-414",
+  "Model": "DJI-Matrice-300-RTK",
+  "Flight_Altitude_M": 214,
+  "Timestamp": "20260822_160722",
+  "Flood_Level": "Moderate",
+  "Severity": "Medium",
+  "FileType": "video/mp4",
+  "Duration_Sec": 5,
+  "Keyframe_Photo_Credit": "Chandan Singh (India)",
+  "Keyframe_Photo_License": "CC BY 2.0",
+  "Keyframe_Photo_Caption": "Aerial view of Patna during real Ganges flooding - crop damage visible (verified GPS: 25.6166,85.1145)",
+  "Keyframe_Data_Source": "Wikimedia Commons (Real Aerial Flood Photograph)",
+  "Video_Source": "ffmpeg-generated pan/zoom clip from the real keyframe photo above (Wikimedia Commons) - not raw drone footage"
+}

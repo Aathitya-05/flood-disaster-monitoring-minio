@@ -1,0 +1,16 @@
+{
+  "Filename": "SAT_Aqua-MODIS_Cuttack_20260531_224100.jpg",
+  "Location": "Cuttack, Odisha",
+  "District": "Cuttack",
+  "Coordinates": "20.4625,85.8828",
+  "Flood_Level": "Moderate",
+  "Severity": "Medium",
+  "Cloud_Cover_Pct": 64.68,
+  "River_Basin": "Mahanadi River",
+  "Satellite": "Aqua-MODIS",
+  "Timestamp": "20260531_224100",
+  "Capture_Date": "2026-05-31",
+  "Resolution_Meters": 250.0,
+  "FileType": "image/jpeg",
+  "Data_Source": "NASA GIBS / Worldview Snapshots API (Real MODIS/VIIRS satellite imagery)"
+}

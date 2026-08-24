@@ -1,0 +1,10 @@
+{
+  "Filename": "ALERT_Cuttack_2026-08-23_001.json",
+  "Alert_ID": "ALERT-20260823-CUT-001",
+  "Location": "Cuttack, Odisha",
+  "District": "Cuttack",
+  "Timestamp": "2026-08-23",
+  "Flood_Level": "Critical",
+  "Severity": "Extreme",
+  "FileType": "application/json"
+}

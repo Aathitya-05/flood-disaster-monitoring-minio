@@ -1,0 +1,19 @@
+{
+  "Filename": "UAV_Autel-EVO-II-Dual_Patna_Sector_2_20260822_170727.mp4",
+  "Location": "Patna, Bihar",
+  "District": "Patna",
+  "Coordinates": "25.5455,85.1611",
+  "Drone_ID": "DRONE-PAT-368",
+  "Model": "Autel-EVO-II-Dual",
+  "Flight_Altitude_M": 125,
+  "Timestamp": "20260822_170727",
+  "Flood_Level": "Moderate",
+  "Severity": "Medium",
+  "FileType": "video/mp4",
+  "Duration_Sec": 5,
+  "Keyframe_Photo_Credit": "Bangaram2008",
+  "Keyframe_Photo_License": "CC BY 4.0",
+  "Keyframe_Photo_Caption": "Patna city viewed from beside the Ganges River",
+  "Keyframe_Data_Source": "Wikimedia Commons (Real Aerial Flood Photograph)",
+  "Video_Source": "ffmpeg-generated pan/zoom clip from the real keyframe photo above (Wikimedia Commons) - not raw drone footage"
+}

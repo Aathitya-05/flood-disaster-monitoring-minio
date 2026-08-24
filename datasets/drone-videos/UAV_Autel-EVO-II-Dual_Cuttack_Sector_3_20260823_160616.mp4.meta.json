@@ -1,0 +1,19 @@
+{
+  "Filename": "UAV_Autel-EVO-II-Dual_Cuttack_Sector_3_20260823_160616.mp4",
+  "Location": "Cuttack, Odisha",
+  "District": "Cuttack",
+  "Coordinates": "20.4931,85.8347",
+  "Drone_ID": "DRONE-CUT-727",
+  "Model": "Autel-EVO-II-Dual",
+  "Flight_Altitude_M": 129,
+  "Timestamp": "20260823_160616",
+  "Flood_Level": "Critical",
+  "Severity": "Extreme",
+  "FileType": "video/mp4",
+  "Duration_Sec": 5,
+  "Keyframe_Photo_Credit": "Dinesh Sankar1729",
+  "Keyframe_Photo_License": "CC BY-SA 4.0",
+  "Keyframe_Photo_Caption": "Mahanadi River bridge, Cuttack, Odisha (verified GPS: 20.4897,85.9179)",
+  "Keyframe_Data_Source": "Wikimedia Commons (Real Aerial Flood Photograph)",
+  "Video_Source": "ffmpeg-generated pan/zoom clip from the real keyframe photo above (Wikimedia Commons) - not raw drone footage"
+}

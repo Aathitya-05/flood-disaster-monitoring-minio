@@ -1,0 +1,15 @@
+{
+  "alert_id": "ALERT-20260822-CUT-006",
+  "issued_date": "2026-08-22",
+  "timestamp": "2026-08-22T20:51:00Z",
+  "issuing_authority": "State Disaster Management Authority (Odisha)",
+  "district": "Cuttack",
+  "state": "Odisha",
+  "river_basin": "Mahanadi River",
+  "alert_code": "ORANGE_ALERT",
+  "severity": "High",
+  "flood_level": "Severe",
+  "action_protocol": "NDRF deployment in low-lying wards of Cuttack. Relief shelters operational.",
+  "shelters_active": 28,
+  "affected_population_est": 9892
+}

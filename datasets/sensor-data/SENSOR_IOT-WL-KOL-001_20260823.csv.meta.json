@@ -1,0 +1,14 @@
+{
+  "Filename": "SENSOR_IOT-WL-KOL-001_20260823.csv",
+  "Location": "Kolhapur, Maharashtra",
+  "District": "Kolhapur",
+  "River_Basin": "Panchganga River",
+  "Sensor_ID": "IOT-WL-KOL-001",
+  "Timestamp": "20260823",
+  "Max_Water_Level_M": 8.0,
+  "Danger_Mark_M": 6.32,
+  "Flood_Level": "Critical",
+  "Severity": "High",
+  "FileType": "text/csv",
+  "Data_Source": "Open-Meteo Flood API - GloFAS global hydrological model (Real Live Data)"
+}

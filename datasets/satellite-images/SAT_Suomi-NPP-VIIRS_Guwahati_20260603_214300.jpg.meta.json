@@ -1,0 +1,16 @@
+{
+  "Filename": "SAT_Suomi-NPP-VIIRS_Guwahati_20260603_214300.jpg",
+  "Location": "Guwahati, Assam",
+  "District": "Guwahati",
+  "Coordinates": "26.1445,91.7362",
+  "Flood_Level": "Moderate",
+  "Severity": "Medium",
+  "Cloud_Cover_Pct": 66.27,
+  "River_Basin": "Brahmaputra River",
+  "Satellite": "Suomi-NPP-VIIRS",
+  "Timestamp": "20260603_214300",
+  "Capture_Date": "2026-06-03",
+  "Resolution_Meters": 250.0,
+  "FileType": "image/jpeg",
+  "Data_Source": "NASA GIBS / Worldview Snapshots API (Real MODIS/VIIRS satellite imagery)"
+}

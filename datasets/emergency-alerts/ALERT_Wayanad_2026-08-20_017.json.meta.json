@@ -1,0 +1,10 @@
+{
+  "Filename": "ALERT_Wayanad_2026-08-20_017.json",
+  "Alert_ID": "ALERT-20260820-WAY-017",
+  "Location": "Wayanad, Kerala",
+  "District": "Wayanad",
+  "Timestamp": "2026-08-20",
+  "Flood_Level": "Critical",
+  "Severity": "Extreme",
+  "FileType": "application/json"
+}

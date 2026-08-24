@@ -1,0 +1,16 @@
+{
+  "Filename": "SAT_NOAA20-VIIRS_Wayanad_20260528_101300.jpg",
+  "Location": "Wayanad, Kerala",
+  "District": "Wayanad",
+  "Coordinates": "11.6854,76.132",
+  "Flood_Level": "Normal",
+  "Severity": "Low",
+  "Cloud_Cover_Pct": 54.62,
+  "River_Basin": "Kabini River",
+  "Satellite": "NOAA20-VIIRS",
+  "Timestamp": "20260528_101300",
+  "Capture_Date": "2026-05-28",
+  "Resolution_Meters": 250.0,
+  "FileType": "image/jpeg",
+  "Data_Source": "NASA GIBS / Worldview Snapshots API (Real MODIS/VIIRS satellite imagery)"
+}

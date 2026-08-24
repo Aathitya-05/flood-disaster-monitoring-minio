@@ -1,0 +1,16 @@
+{
+  "Filename": "SAT_Terra-MODIS_Wayanad_20260818_214200.jpg",
+  "Location": "Wayanad, Kerala",
+  "District": "Wayanad",
+  "Coordinates": "11.6854,76.132",
+  "Flood_Level": "Normal",
+  "Severity": "Low",
+  "Cloud_Cover_Pct": 58.09,
+  "River_Basin": "Kabini River",
+  "Satellite": "Terra-MODIS",
+  "Timestamp": "20260818_214200",
+  "Capture_Date": "2026-08-18",
+  "Resolution_Meters": 250.0,
+  "FileType": "image/jpeg",
+  "Data_Source": "NASA GIBS / Worldview Snapshots API (Real MODIS/VIIRS satellite imagery)"
+}

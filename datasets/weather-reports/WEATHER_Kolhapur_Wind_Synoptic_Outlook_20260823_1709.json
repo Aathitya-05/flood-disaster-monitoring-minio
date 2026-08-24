@@ -1,0 +1,26 @@
+{
+  "report_id": "WR-KOL-2265",
+  "district": "Kolhapur",
+  "state": "Maharashtra",
+  "location": "Kolhapur, Maharashtra",
+  "coordinates": "16.705,74.2433",
+  "data_source": "Open-Meteo Weather API (open-meteo.com) - live public weather data, no synthetic values",
+  "fetched_at_utc": "2026-08-23T17:09:22.541544+00:00",
+  "report_type": "Wind Synoptic Outlook",
+  "dates": [
+    "2026-08-20",
+    "2026-08-21",
+    "2026-08-22",
+    "2026-08-23",
+    "2026-08-24",
+    "2026-08-25"
+  ],
+  "windspeed_10m_max_kmph": [
+    21.2,
+    21.4,
+    22.2,
+    24.0,
+    23.2,
+    24.3
+  ]
+}

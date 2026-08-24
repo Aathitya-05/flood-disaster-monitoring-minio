@@ -1,0 +1,19 @@
+{
+  "Filename": "UAV_IdeaForge-NETRA-V4_Guwahati_Sector_1_20260823_100836.mp4",
+  "Location": "Guwahati, Assam",
+  "District": "Guwahati",
+  "Coordinates": "26.1478,91.7666",
+  "Drone_ID": "DRONE-GUW-840",
+  "Model": "IdeaForge-NETRA-V4",
+  "Flight_Altitude_M": 167,
+  "Timestamp": "20260823_100836",
+  "Flood_Level": "Moderate",
+  "Severity": "Medium",
+  "FileType": "video/mp4",
+  "Duration_Sec": 5,
+  "Keyframe_Photo_Credit": "Pinakpani",
+  "Keyframe_Photo_License": "CC BY 4.0",
+  "Keyframe_Photo_Caption": "Umananda Island in the Brahmaputra River, Guwahati, Assam",
+  "Keyframe_Data_Source": "Wikimedia Commons (Real Aerial Flood Photograph)",
+  "Video_Source": "ffmpeg-generated pan/zoom clip from the real keyframe photo above (Wikimedia Commons) - not raw drone footage"
+}

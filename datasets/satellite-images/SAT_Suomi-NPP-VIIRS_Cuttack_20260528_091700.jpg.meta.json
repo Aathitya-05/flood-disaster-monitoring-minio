@@ -1,0 +1,16 @@
+{
+  "Filename": "SAT_Suomi-NPP-VIIRS_Cuttack_20260528_091700.jpg",
+  "Location": "Cuttack, Odisha",
+  "District": "Cuttack",
+  "Coordinates": "20.4625,85.8828",
+  "Flood_Level": "Moderate",
+  "Severity": "Medium",
+  "Cloud_Cover_Pct": 42.64,
+  "River_Basin": "Mahanadi River",
+  "Satellite": "Suomi-NPP-VIIRS",
+  "Timestamp": "20260528_091700",
+  "Capture_Date": "2026-05-28",
+  "Resolution_Meters": 250.0,
+  "FileType": "image/jpeg",
+  "Data_Source": "NASA GIBS / Worldview Snapshots API (Real MODIS/VIIRS satellite imagery)"
+}
