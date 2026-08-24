@@ -1,0 +1,19 @@
+# MinIO server binary (108MB, exceeds GitHub's 100MB file limit) - download separately from https://min.io/download
+minio_bin/
+
+# MinIO's live object storage backend (runtime state, not source)
+minio_data/
+
+# Generated/fetched datasets (regenerable via real_data_fetcher.py + data_generator.py)
+datasets/
+
+# Screenshots folder (populated manually per PROJECT_REPORT.md section 12)
+screenshots/*
+!screenshots/.gitkeep
+
+# Python
+__pycache__/
+*.pyc
+
+# Local tool/session state
+.claude/
