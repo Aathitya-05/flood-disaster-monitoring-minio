@@ -304,6 +304,28 @@ code, pre, kbd, .stCodeBlock, [data-testid="stCodeBlock"] * {
     border-radius: 12px !important;
 }
 
+/* Tabs - pill-style, matches sidebar nav language */
+[data-testid="stTabs"] [data-baseweb="tab-list"] {
+    gap: 6px;
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 14px;
+    padding: 6px;
+}
+[data-testid="stTabs"] [data-baseweb="tab"] {
+    border-radius: 10px;
+    padding: 8px 18px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+[data-testid="stTabs"] [data-baseweb="tab"]:hover { background: rgba(255,255,255,0.06); }
+[data-testid="stTabs"] [aria-selected="true"] {
+    background: linear-gradient(95deg, rgba(57,135,229,0.28), rgba(144,133,233,0.22)) !important;
+    box-shadow: 0 0 16px rgba(57,135,229,0.18);
+}
+[data-testid="stTabs"] [data-baseweb="tab-highlight"] { display: none; }
+[data-testid="stTabs"] [data-baseweb="tab-border"] { display: none; }
+
 /* Alerts (st.info/st.success/st.warning) */
 [data-testid="stAlert"] {
     border-radius: 14px;
@@ -482,28 +504,35 @@ if menu == "📊 Storage Overview & Buckets":
         "weather-reports": "#c98500", "emergency-alerts": "#d55181"
     }
 
-    cols = st.columns(len(buckets))
+    # Gather all bucket stats up front - render order is decoupled from fetch order
     stats = []
-
-    for i, b in enumerate(buckets):
+    for b in buckets:
         objs = list(client.list_objects(b, recursive=True))
-        total_sz = sum(o.size for o in objs)
-        stats.append({"bucket": b, "count": len(objs), "size": total_sz})
-        with cols[i]:
-            st.metric(
-                label=f"{bucket_icons.get(b, '📦')} {b}",
-                value=f"{len(objs)} Objects",
-                delta=f"{total_sz / 1024:.1f} KB"
-            )
+        stats.append({"bucket": b, "count": len(objs), "size": sum(o.size for o in objs)})
 
     grand_total_objs = sum(s["count"] for s in stats)
     grand_total_size = sum(s["size"] for s in stats)
 
+    # 1. Hero KPIs - the two numbers that matter most, first
     hc1, hc2 = st.columns(2)
     hc1.metric("🗄️ Total Objects Across All Buckets", f"{grand_total_objs}")
     hc2.metric("💾 Total Storage Footprint", f"{grand_total_size / (1024*1024):.2f} MB")
 
-    st.markdown("<div style='height:6px'></div>", unsafe_allow_html=True)
+    st.markdown("<div style='height:10px'></div>", unsafe_allow_html=True)
+
+    # 2. Per-bucket breakdown
+    st.markdown('<p style="color:var(--ink-muted);font-size:0.82rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px;">Per-Bucket Breakdown</p>', unsafe_allow_html=True)
+    cols = st.columns(len(buckets))
+    for i, s in enumerate(stats):
+        with cols[i]:
+            st.metric(
+                label=f"{bucket_icons.get(s['bucket'], '📦')} {s['bucket']}",
+                value=f"{s['count']} Objects",
+                delta=f"{s['size'] / 1024:.1f} KB"
+            )
+
+    # 3. Relative distribution visualization
+    st.markdown('<p style="color:var(--ink-muted);font-size:0.82rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;margin:20px 0 8px 0;">Relative Distribution</p>', unsafe_allow_html=True)
     bar_rows = ""
     max_count = max((s["count"] for s in stats), default=1) or 1
     for s in stats:
@@ -520,8 +549,14 @@ if menu == "📊 Storage Overview & Buckets":
         )
     st.markdown(f'<div class="fdm-card">{bar_rows}</div>', unsafe_allow_html=True)
 
+    st.markdown('<hr class="fdm-divider"/>', unsafe_allow_html=True)
+
+    # 4. Full inventory - a distinct section, since it's a different task (browse vs. summarize)
     section_title("📋", "Bucket Inventory & Sample Objects")
-    selected_bucket = st.selectbox("Select Bucket to Inspect:", buckets)
+    with st.container():
+        st.markdown('<div class="fdm-card">', unsafe_allow_html=True)
+        selected_bucket = st.selectbox("Select Bucket to Inspect:", buckets)
+        st.markdown('</div>', unsafe_allow_html=True)
 
     objs = list(client.list_objects(selected_bucket, recursive=True))
     table_data = []
@@ -547,12 +582,15 @@ if menu == "📊 Storage Overview & Buckets":
 elif menu == "🛰️ Satellite Flood Maps":
     section_title("🛰️", "Satellite Inundation & Geospatial Imagery")
 
-    district = st.selectbox("Select District:", ["All", "Cuttack", "Wayanad", "Patna", "Guwahati", "Kolhapur"])
+    with st.container():
+        st.markdown('<div class="fdm-card">', unsafe_allow_html=True)
+        district = st.selectbox("Select District:", ["All", "Cuttack", "Wayanad", "Patna", "Guwahati", "Kolhapur"])
+        st.markdown('</div>', unsafe_allow_html=True)
     prefix = "" if district == "All" else f"raw/{district}/"
 
     objs = [o for o in client.list_objects("satellite-images", prefix=prefix, recursive=True) if o.object_name.endswith(".jpg")]
 
-    st.caption(f"Displaying **{len(objs)}** satellite scenes")
+    st.markdown(f'<p style="color:var(--ink-muted);font-size:0.88rem;margin-bottom:14px;">Displaying <strong style="color:var(--ink);">{len(objs)}</strong> satellite scenes</p>', unsafe_allow_html=True)
     cols = st.columns(3)
     for idx, o in enumerate(objs):
         stat = client.stat_object("satellite-images", o.object_name)
@@ -582,43 +620,46 @@ elif menu == "🛰️ Satellite Flood Maps":
 elif menu == "🚁 Drone Aerial Surveillance":
     section_title("🚁", "Drone Aerial Reconnaissance Footage", "Task 5.1 — retrieval of drone footage by district with S3 pre-signed URLs and keyframes")
 
-    district = st.selectbox("Select Surveillance District:", ["Cuttack", "Wayanad", "Patna", "Guwahati", "Kolhapur"])
-    prefix = f"aerial/{district}/"
+    with st.container():
+        st.markdown('<div class="fdm-card">', unsafe_allow_html=True)
+        district = st.selectbox("Select Surveillance District:", ["Cuttack", "Wayanad", "Patna", "Guwahati", "Kolhapur"])
+        st.markdown('</div>', unsafe_allow_html=True)
 
+    prefix = f"aerial/{district}/"
     objs = [o for o in client.list_objects("drone-videos", prefix=prefix, recursive=True) if o.object_name.endswith(".mp4")]
 
-    st.caption(f"Found **{len(objs)}** drone missions in **{district}**")
-    for o in objs:
+    st.markdown(f'<p style="color:var(--ink-muted);font-size:0.88rem;margin-bottom:14px;">Found <strong style="color:var(--ink);">{len(objs)}</strong> drone missions in <strong style="color:var(--ink);">{district}</strong></p>', unsafe_allow_html=True)
+
+    grid = st.columns(2)
+    for idx, o in enumerate(objs):
         stat = client.stat_object("drone-videos", o.object_name)
         meta = stat.metadata
 
         url = client.presigned_get_object("drone-videos", o.object_name, expires=timedelta(hours=1))
         frame_key = o.object_name + ".jpg"
 
-        with st.container():
+        with grid[idx % 2]:
             st.markdown('<div class="fdm-card">', unsafe_allow_html=True)
-            c1, c2 = st.columns([1, 2])
-            with c1:
-                try:
-                    frame_res = client.get_object("drone-videos", frame_key)
-                    fimg = Image.open(io.BytesIO(frame_res.read()))
-                    frame_res.close()
-                    frame_res.release_conn()
-                    st.image(fimg, caption="Mission Reconnaissance Keyframe", use_container_width=True)
-                except Exception:
-                    st.write("Frame preview unavailable")
+            try:
+                frame_res = client.get_object("drone-videos", frame_key)
+                fimg = Image.open(io.BytesIO(frame_res.read()))
+                frame_res.close()
+                frame_res.release_conn()
+                st.image(fimg, caption="Mission Reconnaissance Keyframe", use_container_width=True)
+            except Exception:
+                st.write("Frame preview unavailable")
 
-            with c2:
-                st.markdown(
-                    f"<h3>🚁 {meta.get('x-amz-meta-sensor-id', 'Drone')}</h3>"
-                    f"<ul>"
-                    f"<li><strong>UAV Model:</strong> {meta.get('x-amz-meta-model')} &nbsp;·&nbsp; <strong>Altitude:</strong> {meta.get('x-amz-meta-altitude-m')} m</li>"
-                    f"<li><strong>District:</strong> {meta.get('x-amz-meta-district')} (Coords: <code>{meta.get('x-amz-meta-coordinates')}</code>)</li>"
-                    f"<li><strong>Severity:</strong> {badge(meta.get('x-amz-meta-severity'))} &nbsp; <strong>Flood Level:</strong> {badge(meta.get('x-amz-meta-flood-level'))}</li>"
-                    f"</ul>",
-                    unsafe_allow_html=True
-                )
-                st.markdown(f"**Pre-Signed Secure Download URL:** [Download / Stream Video]({url})")
+            st.markdown(
+                f"<h3>🚁 {meta.get('x-amz-meta-sensor-id', 'Drone')}</h3>"
+                f"<ul>"
+                f"<li><strong>UAV Model:</strong> {meta.get('x-amz-meta-model')} &nbsp;·&nbsp; <strong>Altitude:</strong> {meta.get('x-amz-meta-altitude-m')} m</li>"
+                f"<li><strong>District:</strong> {meta.get('x-amz-meta-district')} (Coords: <code>{meta.get('x-amz-meta-coordinates')}</code>)</li>"
+                f"<li><strong>Severity:</strong> {badge(meta.get('x-amz-meta-severity'))} &nbsp; <strong>Flood Level:</strong> {badge(meta.get('x-amz-meta-flood-level'))}</li>"
+                f"</ul>",
+                unsafe_allow_html=True
+            )
+            with st.expander("🔗 Pre-Signed Secure Download URL"):
+                st.markdown(f"[Download / Stream Video]({url})")
                 st.code(url, language="bash")
             st.markdown('</div>', unsafe_allow_html=True)
 
@@ -628,7 +669,10 @@ elif menu == "🚁 Drone Aerial Surveillance":
 elif menu == "🌊 IoT Sensor Telemetry":
     section_title("🌊", "IoT Water Level Sensor Telemetry", "Task 5.2 — real-time streaming and threshold filtering of river water levels directly from MinIO")
 
-    district = st.selectbox("Select River Basin District:", ["Cuttack", "Wayanad", "Patna", "Guwahati", "Kolhapur"])
+    with st.container():
+        st.markdown('<div class="fdm-card">', unsafe_allow_html=True)
+        district = st.selectbox("Select River Basin District:", ["Cuttack", "Wayanad", "Patna", "Guwahati", "Kolhapur"])
+        st.markdown('</div>', unsafe_allow_html=True)
     prefix = f"telemetry/{district}/"
     objs = [o for o in client.list_objects("sensor-data", prefix=prefix, recursive=True) if o.object_name.endswith(".csv")]
 
@@ -672,45 +716,56 @@ elif menu == "🌦️ Weather Radar Reports":
     section_title("🌦️", "Weather Reports — Live Data (Open-Meteo)", "Real, live weather data fetched from the Open-Meteo public API for each district's actual coordinates")
     objs = [o for o in client.list_objects("weather-reports", recursive=True) if o.object_name.endswith(".json") and not o.object_name.endswith(".meta.json")]
 
+    # Group by district first so each district's 3 reports live under one tab
+    # instead of 15 reports flattened into one long expander list.
+    by_district = {}
     for o in objs:
         res = client.get_object("weather-reports", o.object_name)
         data = json.loads(res.read().decode("utf-8"))
         res.close()
         res.release_conn()
+        by_district.setdefault(data.get("district", "Unknown"), []).append(data)
 
-        report_type = data.get("report_type", "Weather Report")
-        district = data.get("district", "Unknown")
+    report_order = {"Live Current Conditions": 0, "3-Day Precipitation Forecast": 1, "Wind Synoptic Outlook": 2}
+    districts_present = sorted(by_district.keys())
 
-        with st.expander(f"📡 {district} — {report_type}"):
-            if report_type == "Live Current Conditions":
-                c1, c2, c3 = st.columns(3)
-                c1.metric("Temperature", f"{data.get('temperature_c')} °C")
-                c2.metric("Precipitation (current)", f"{data.get('precipitation_mm')} mm")
-                c3.metric("Wind Speed", f"{data.get('wind_speed_kmph')} km/h")
-                c4, c5, c6 = st.columns(3)
-                c4.metric("Humidity", f"{data.get('relative_humidity_pct')} %")
-                c5.metric("Cloud Cover", f"{data.get('cloud_cover_pct')} %")
-                c6.metric("Pressure (MSL)", f"{data.get('pressure_msl_hpa')} hPa")
-            elif report_type == "3-Day Precipitation Forecast":
-                dates = data.get("dates") or []
-                precip = data.get("precipitation_sum_mm") or []
-                prob = data.get("precipitation_probability_max_pct") or []
-                if dates and precip:
-                    forecast_df = pd.DataFrame({"Date": dates, "Precipitation (mm)": precip, "Max Probability (%)": prob})
-                    st.dataframe(forecast_df, use_container_width=True, hide_index=True)
-                    precip_valid = [p for p in precip if p is not None]
-                    if precip_valid:
-                        st.metric("Peak Forecast Precipitation", f"{max(precip_valid):.1f} mm")
-            elif report_type == "Wind Synoptic Outlook":
-                dates = data.get("dates") or []
-                wind = data.get("windspeed_10m_max_kmph") or []
-                if dates and wind:
-                    wind_df = pd.DataFrame({"Date": dates, "Max Wind Speed (km/h)": wind})
-                    st.dataframe(wind_df, use_container_width=True, hide_index=True)
-                    wind_valid = [w for w in wind if w is not None]
-                    if wind_valid:
-                        st.metric("Peak Wind Speed", f"{max(wind_valid):.1f} km/h")
-            st.caption(f"Fetched {data.get('fetched_at_utc', 'N/A')} · Source: {data.get('data_source', 'N/A')}")
+    if districts_present:
+        tabs = st.tabs([f"📍 {d}" for d in districts_present])
+        for tab, dist_name in zip(tabs, districts_present):
+            with tab:
+                reports = sorted(by_district[dist_name], key=lambda d: report_order.get(d.get("report_type", ""), 9))
+                for data in reports:
+                    report_type = data.get("report_type", "Weather Report")
+                    with st.expander(f"📡 {report_type}", expanded=(report_type == "Live Current Conditions")):
+                        if report_type == "Live Current Conditions":
+                            c1, c2, c3 = st.columns(3)
+                            c1.metric("Temperature", f"{data.get('temperature_c')} °C")
+                            c2.metric("Precipitation (current)", f"{data.get('precipitation_mm')} mm")
+                            c3.metric("Wind Speed", f"{data.get('wind_speed_kmph')} km/h")
+                            c4, c5, c6 = st.columns(3)
+                            c4.metric("Humidity", f"{data.get('relative_humidity_pct')} %")
+                            c5.metric("Cloud Cover", f"{data.get('cloud_cover_pct')} %")
+                            c6.metric("Pressure (MSL)", f"{data.get('pressure_msl_hpa')} hPa")
+                        elif report_type == "3-Day Precipitation Forecast":
+                            dates = data.get("dates") or []
+                            precip = data.get("precipitation_sum_mm") or []
+                            prob = data.get("precipitation_probability_max_pct") or []
+                            if dates and precip:
+                                forecast_df = pd.DataFrame({"Date": dates, "Precipitation (mm)": precip, "Max Probability (%)": prob})
+                                st.dataframe(forecast_df, use_container_width=True, hide_index=True)
+                                precip_valid = [p for p in precip if p is not None]
+                                if precip_valid:
+                                    st.metric("Peak Forecast Precipitation", f"{max(precip_valid):.1f} mm")
+                        elif report_type == "Wind Synoptic Outlook":
+                            dates = data.get("dates") or []
+                            wind = data.get("windspeed_10m_max_kmph") or []
+                            if dates and wind:
+                                wind_df = pd.DataFrame({"Date": dates, "Max Wind Speed (km/h)": wind})
+                                st.dataframe(wind_df, use_container_width=True, hide_index=True)
+                                wind_valid = [w for w in wind if w is not None]
+                                if wind_valid:
+                                    st.metric("Peak Wind Speed", f"{max(wind_valid):.1f} km/h")
+                        st.caption(f"Fetched {data.get('fetched_at_utc', 'N/A')} · Source: {data.get('data_source', 'N/A')}")
 
 # -------------------------------------------------------------
 # 6. Emergency Alert Bulletins (Task 5.3 Demo)
@@ -719,12 +774,15 @@ elif menu == "🚨 Emergency Alert Bulletins":
     section_title("🚨", "State Emergency Operation Center Alert Bulletins", "Task 5.3 — query retrieval of emergency alerts filtered by specific issuance dates")
 
     dates = ["2026-08-23", "2026-08-22", "2026-08-21", "2026-08-20"]
-    target_date = st.selectbox("Select Alert Issuance Date:", dates)
+    with st.container():
+        st.markdown('<div class="fdm-card">', unsafe_allow_html=True)
+        target_date = st.selectbox("Select Alert Issuance Date:", dates)
+        st.markdown('</div>', unsafe_allow_html=True)
 
     prefix = f"bulletins/{target_date}/"
     objs = list(client.list_objects("emergency-alerts", prefix=prefix, recursive=True))
 
-    st.caption(f"Retrieved **{len(objs)}** official alert bulletins for **{target_date}**")
+    st.markdown(f'<p style="color:var(--ink-muted);font-size:0.88rem;margin-bottom:14px;">Retrieved <strong style="color:var(--ink);">{len(objs)}</strong> official alert bulletins for <strong style="color:var(--ink);">{target_date}</strong></p>', unsafe_allow_html=True)
     for o in objs:
         res = client.get_object("emergency-alerts", o.object_name)
         payload = json.loads(res.read().decode("utf-8"))
@@ -749,11 +807,16 @@ elif menu == "🚨 Emergency Alert Bulletins":
 elif menu == "🔍 Custom Query Workbench":
     section_title("🔍", "MinIO S3 Metadata & Object Query Workbench", "Execute live multi-criteria queries across MinIO buckets using custom metadata tags")
 
-    q_bucket = st.selectbox("Select Target Bucket:", ["satellite-images", "drone-videos", "sensor-data", "weather-reports", "emergency-alerts"])
-    q_district = st.selectbox("Filter District:", ["Any", "Cuttack", "Wayanad", "Patna", "Guwahati", "Kolhapur"])
-    q_flood_level = st.selectbox("Filter Flood Level:", ["Any", "Critical", "Severe", "Moderate", "Normal"])
+    with st.container():
+        st.markdown('<div class="fdm-card">', unsafe_allow_html=True)
+        qc1, qc2, qc3 = st.columns(3)
+        q_bucket = qc1.selectbox("Select Target Bucket:", ["satellite-images", "drone-videos", "sensor-data", "weather-reports", "emergency-alerts"])
+        q_district = qc2.selectbox("Filter District:", ["Any", "Cuttack", "Wayanad", "Patna", "Guwahati", "Kolhapur"])
+        q_flood_level = qc3.selectbox("Filter Flood Level:", ["Any", "Critical", "Severe", "Moderate", "Normal"])
+        run_query = st.button("🚀 Execute MinIO Query")
+        st.markdown('</div>', unsafe_allow_html=True)
 
-    if st.button("🚀 Execute MinIO Query"):
+    if run_query:
         objs = list(client.list_objects(q_bucket, recursive=True))
         results = []
         for o in objs:
