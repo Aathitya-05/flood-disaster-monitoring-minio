@@ -76,11 +76,21 @@ st.markdown("""
     --accent-aqua: #199e70;
 }
 
-html, body, [class*="css"], .stApp, .stApp * :not(code):not(pre):not(kbd) {
+html, body, [class*="css"], .stApp, .stApp * :not(code):not(pre):not(kbd):not([data-testid="stIconMaterial"]) {
     font-family: 'Inter', system-ui, -apple-system, sans-serif !important;
 }
 code, pre, kbd, .stCodeBlock, [data-testid="stCodeBlock"] * {
     font-family: 'SF Mono', 'Menlo', ui-monospace, monospace !important;
+}
+/* Material Symbols icons (sidebar collapse arrow, expander chevrons, etc.) must
+   keep Streamlit's own icon font - the broad Inter override above turns their
+   ligature text (e.g. "keyboard_double_arrow_left") into literal visible text
+   instead of rendering the icon glyph. */
+[data-testid="stIconMaterial"] {
+    font-family: 'Material Symbols Rounded' !important;
+    font-weight: normal !important;
+    -webkit-font-feature-settings: 'liga';
+    font-feature-settings: 'liga';
 }
 
 .stApp {
