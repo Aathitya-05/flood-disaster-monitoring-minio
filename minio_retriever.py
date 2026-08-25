@@ -103,10 +103,10 @@ def retrieve_water_level_sensor_data(client, target_district="Cuttack", threshol
         stat = client.stat_object(bucket, obj.object_name)
         sensor_id = stat.metadata.get("x-amz-meta-sensor-id", "Unknown")
         max_level = stat.metadata.get("x-amz-meta-max-water-level", "Unknown")
-        danger_mark = stat.metadata.get("x-amz-meta-danger-mark", "Unknown")
-        
+        danger_mark = stat.metadata.get("x-amz-meta-danger-mark", "0")
+
         print(f"[*] Sensor Unit: {sensor_id} [Max Level Recorded: {max_level}m | Danger Mark: {danger_mark}m]")
-        
+
         # Filter telemetry points exceeding danger threshold
         critical_df = df[df["water_level_meters"] >= float(danger_mark)]
         print(f"    Total Hourly Readings: {len(df)} | Critical Inundation Readings: {len(critical_df)}")

@@ -34,7 +34,7 @@ STATUS_COLORS = {
 }
 
 
-def badge(value, kind="flood"):
+def badge(value):
     """Renders a colored status pill for a flood-level or severity value."""
     if not value:
         return ""
@@ -94,13 +94,29 @@ code, pre, kbd, .stCodeBlock, [data-testid="stCodeBlock"] * {
 }
 
 .stApp {
+    background: var(--bg-plane);
+    color: var(--ink);
+    position: relative;
+}
+.stApp::before {
+    content: "";
+    position: fixed;
+    inset: -10%;
+    z-index: 0;
+    pointer-events: none;
     background:
         radial-gradient(1200px 600px at 15% -10%, rgba(57,135,229,0.16), transparent 60%),
         radial-gradient(1000px 500px at 100% 0%, rgba(144,133,233,0.14), transparent 55%),
-        radial-gradient(900px 700px at 50% 120%, rgba(25,158,112,0.10), transparent 60%),
-        var(--bg-plane);
-    color: var(--ink);
+        radial-gradient(900px 700px at 50% 120%, rgba(25,158,112,0.10), transparent 60%);
+    animation: fdmAmbientDrift 26s ease-in-out infinite alternate;
+    will-change: transform;
 }
+@keyframes fdmAmbientDrift {
+    0%   { transform: translate(0, 0) scale(1) rotate(0deg); }
+    50%  { transform: translate(-1.5%, 2%) scale(1.06) rotate(1.5deg); }
+    100% { transform: translate(2%, -1.5%) scale(1.03) rotate(-1deg); }
+}
+.stApp > * { position: relative; z-index: 1; }
 
 .main .block-container {
     padding-top: 2.2rem;
@@ -293,6 +309,34 @@ code, pre, kbd, .stCodeBlock, [data-testid="stCodeBlock"] * {
     border-radius: 14px;
     backdrop-filter: blur(10px);
     border: 1px solid var(--glass-border);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 18px rgba(0,0,0,0.22);
+}
+
+/* Live pulse dot for the "S3 Storage Engine: Active" sidebar status */
+.fdm-live-dot {
+    display: inline-block; width: 8px; height: 8px; border-radius: 50%;
+    background: #0ca30c; margin-right: 6px;
+    box-shadow: 0 0 0 0 rgba(12,163,12,0.6);
+    animation: fdmPulse 1.8s cubic-bezier(.4,0,.6,1) infinite;
+}
+@keyframes fdmPulse {
+    0%   { box-shadow: 0 0 0 0 rgba(12,163,12,0.55); }
+    70%  { box-shadow: 0 0 0 8px rgba(12,163,12,0); }
+    100% { box-shadow: 0 0 0 0 rgba(12,163,12,0); }
+}
+
+/* Staggered entrance for column-based card/image grids across every page */
+[data-testid="column"] {
+    animation: fdmCardIn 0.5s cubic-bezier(.2,.8,.2,1) backwards;
+}
+[data-testid="column"]:nth-child(1) { animation-delay: 0.04s; }
+[data-testid="column"]:nth-child(2) { animation-delay: 0.11s; }
+[data-testid="column"]:nth-child(3) { animation-delay: 0.18s; }
+[data-testid="column"]:nth-child(4) { animation-delay: 0.25s; }
+[data-testid="column"]:nth-child(5) { animation-delay: 0.32s; }
+@keyframes fdmCardIn {
+    from { opacity: 0; transform: translateY(16px) scale(0.98); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 /* Scrollbar */
@@ -414,10 +458,14 @@ menu = st.sidebar.radio(
 )
 
 st.sidebar.markdown("---")
-st.sidebar.info(
-    f"**MinIO API:** `http://{MINIO_ENDPOINT}`\n\n"
-    f"**MinIO Console:** `http://127.0.0.1:9101`\n\n"
-    f"**S3 Storage Engine:** Active"
+st.sidebar.markdown(
+    f'<div class="fdm-card" style="padding:14px 16px;margin-bottom:0;">'
+    f'<div style="font-size:0.85rem;line-height:1.7;">'
+    f'<strong>MinIO API:</strong> <code>http://{MINIO_ENDPOINT}</code><br/>'
+    f'<strong>MinIO Console:</strong> <code>http://127.0.0.1:9101</code><br/>'
+    f'<span class="fdm-live-dot"></span><strong>S3 Storage Engine:</strong> Active'
+    f'</div></div>',
+    unsafe_allow_html=True
 )
 
 # -------------------------------------------------------------
@@ -428,6 +476,11 @@ if menu == "📊 Storage Overview & Buckets":
 
     buckets = ["satellite-images", "drone-videos", "sensor-data", "weather-reports", "emergency-alerts"]
     bucket_icons = {"satellite-images": "🛰️", "drone-videos": "🚁", "sensor-data": "🌊", "weather-reports": "🌦️", "emergency-alerts": "🚨"}
+    # Fixed categorical order (never cycled/re-ranked) - validated CVD-safe slots
+    bucket_colors = {
+        "satellite-images": "#3987e5", "drone-videos": "#d95926", "sensor-data": "#199e70",
+        "weather-reports": "#c98500", "emergency-alerts": "#d55181"
+    }
 
     cols = st.columns(len(buckets))
     stats = []
@@ -435,12 +488,37 @@ if menu == "📊 Storage Overview & Buckets":
     for i, b in enumerate(buckets):
         objs = list(client.list_objects(b, recursive=True))
         total_sz = sum(o.size for o in objs)
+        stats.append({"bucket": b, "count": len(objs), "size": total_sz})
         with cols[i]:
             st.metric(
                 label=f"{bucket_icons.get(b, '📦')} {b}",
                 value=f"{len(objs)} Objects",
                 delta=f"{total_sz / 1024:.1f} KB"
             )
+
+    grand_total_objs = sum(s["count"] for s in stats)
+    grand_total_size = sum(s["size"] for s in stats)
+
+    hc1, hc2 = st.columns(2)
+    hc1.metric("🗄️ Total Objects Across All Buckets", f"{grand_total_objs}")
+    hc2.metric("💾 Total Storage Footprint", f"{grand_total_size / (1024*1024):.2f} MB")
+
+    st.markdown("<div style='height:6px'></div>", unsafe_allow_html=True)
+    bar_rows = ""
+    max_count = max((s["count"] for s in stats), default=1) or 1
+    for s in stats:
+        pct = round((s["count"] / max_count) * 100, 1)
+        color = bucket_colors.get(s["bucket"], "#3987e5")
+        bar_rows += (
+            f'<div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;">'
+            f'<div style="width:150px;font-size:0.85rem;color:var(--ink-secondary);">{bucket_icons.get(s["bucket"],"📦")} {s["bucket"]}</div>'
+            f'<div style="flex:1;background:rgba(255,255,255,0.06);border-radius:8px;height:14px;overflow:hidden;">'
+            f'<div style="width:{pct}%;height:100%;background:linear-gradient(90deg,{color}aa,{color});border-radius:8px;'
+            f'box-shadow:0 0 12px {color}66;transition:width 0.6s cubic-bezier(.2,.8,.2,1);"></div></div>'
+            f'<div style="width:56px;text-align:right;font-size:0.85rem;font-weight:700;color:{color};">{s["count"]}</div>'
+            f'</div>'
+        )
+    st.markdown(f'<div class="fdm-card">{bar_rows}</div>', unsafe_allow_html=True)
 
     section_title("📋", "Bucket Inventory & Sample Objects")
     selected_bucket = st.selectbox("Select Bucket to Inspect:", buckets)
@@ -620,14 +698,18 @@ elif menu == "🌦️ Weather Radar Reports":
                 if dates and precip:
                     forecast_df = pd.DataFrame({"Date": dates, "Precipitation (mm)": precip, "Max Probability (%)": prob})
                     st.dataframe(forecast_df, use_container_width=True, hide_index=True)
-                    st.metric("Peak Forecast Precipitation", f"{max(p for p in precip if p is not None):.1f} mm")
+                    precip_valid = [p for p in precip if p is not None]
+                    if precip_valid:
+                        st.metric("Peak Forecast Precipitation", f"{max(precip_valid):.1f} mm")
             elif report_type == "Wind Synoptic Outlook":
                 dates = data.get("dates") or []
                 wind = data.get("windspeed_10m_max_kmph") or []
                 if dates and wind:
                     wind_df = pd.DataFrame({"Date": dates, "Max Wind Speed (km/h)": wind})
                     st.dataframe(wind_df, use_container_width=True, hide_index=True)
-                    st.metric("Peak Wind Speed", f"{max(w for w in wind if w is not None):.1f} km/h")
+                    wind_valid = [w for w in wind if w is not None]
+                    if wind_valid:
+                        st.metric("Peak Wind Speed", f"{max(wind_valid):.1f} km/h")
             st.caption(f"Fetched {data.get('fetched_at_utc', 'N/A')} · Source: {data.get('data_source', 'N/A')}")
 
 # -------------------------------------------------------------
@@ -655,7 +737,7 @@ elif menu == "🚨 Emergency Alert Bulletins":
         st.markdown(f"""
         <div class="fdm-alert-card" style="--accent-color:{accent};">
             <h4>🚨 {payload['alert_id']} — <span style="color:{accent};">{payload['alert_code']}</span></h4>
-            <p>{badge(payload['severity'], 'severity')} &nbsp; <strong>Authority:</strong> {payload['issuing_authority']} &nbsp;|&nbsp; <strong>District:</strong> {payload['district']}, {payload['state']} (Basin: {payload['river_basin']})</p>
+            <p>{badge(payload['severity'])} &nbsp; <strong>Authority:</strong> {payload['issuing_authority']} &nbsp;|&nbsp; <strong>District:</strong> {payload['district']}, {payload['state']} (Basin: {payload['river_basin']})</p>
             <p><strong>Action Protocol:</strong> {payload['action_protocol']}</p>
             <p><strong>Estimated Affected Population:</strong> {payload['affected_population_est']:,} &nbsp;|&nbsp; <strong>Active Shelters:</strong> {payload['shelters_active']}</p>
         </div>
