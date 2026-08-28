@@ -5,7 +5,7 @@ Micro project: an S3-compatible object storage architecture built on MinIO for a
 ## Requirements
 
 - **Python 3.10+**
-- **MinIO server binary** — included at `minio_bin/minio.exe` (pulled via Git LFS; run `git lfs install` before cloning, or `git lfs pull` after, if you get a small pointer-file stub instead of the real ~113MB binary)
+- **MinIO server binary** — included at `minio_bin/minio.exe` (Windows) and `minio_bin_linux/minio` (Linux, used for hosted deployment — see below). Both pulled via Git LFS; run `git lfs install` before cloning, or `git lfs pull` after, if you get a small pointer-file stub instead of the real ~110MB binaries.
 - **ffmpeg** (optional) — used to generate real playable drone-mission video clips; falls back to a placeholder file if not found. [Download here](https://ffmpeg.org/download.html) if you don't have it.
 - Internet access — only needed if you regenerate the dataset (`real_data_fetcher.py` calls live public APIs)
 
@@ -58,6 +58,21 @@ minio_bin\minio.exe server minio_data --address "127.0.0.1:9100" --console-addre
 ```bash
 streamlit run app.py --server.port 8501
 ```
+
+## Deploying to Streamlit Community Cloud
+
+`app.py` is self-contained for hosted deployment: on startup it checks whether a MinIO server is reachable, and if not (there's no `start_project.bat` step on a hosted platform), it automatically launches the bundled Linux MinIO binary at `minio_bin_linux/minio` as a background process, pointed at the exact dataset already committed in `minio_data/`. No live API calls or manual setup needed at deploy time.
+
+To deploy:
+1. Push this repo to GitHub (already done if you're reading this from the repo).
+2. Go to [share.streamlit.io](https://share.streamlit.io) and sign in with your GitHub account.
+3. Click **"New app"**, select this repository, branch `main`, and set the main file to `app.py`.
+4. Deploy. First boot takes a little longer than usual while MinIO starts up in the background — subsequent reruns are instant since the health check short-circuits.
+
+**Limitations of this setup** (it's a demo-grade deployment, not production object storage):
+- Streamlit Community Cloud's filesystem is ephemeral — if the app container restarts or goes to sleep from inactivity, MinIO restarts fresh from the `minio_data/` snapshot committed in the repo. Any changes made *during* a live session (there aren't any write operations in this dashboard) would not persist across restarts.
+- The bundled binary only runs on Linux; on Windows it's skipped (`platform.system() != "Linux"`) and local development continues to use `start_project.bat` + `minio_bin/minio.exe` exactly as before.
+- Root credentials (`minioadmin`/`minioadmin`) are the same defaults documented throughout this project — fine for a public read-only demo of synthetic + real public data, not for anything with real secrets.
 
 ## Data authenticity
 

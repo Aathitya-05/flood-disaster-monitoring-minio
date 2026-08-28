@@ -4,7 +4,12 @@ Provides interactive visualization and query interface over MinIO Object Storage
 """
 
 import io
+import os
 import json
+import time
+import platform
+import subprocess
+import urllib.request
 import streamlit as st
 import pandas as pd
 from datetime import timedelta
@@ -440,6 +445,61 @@ code, pre, kbd, .stCodeBlock, [data-testid="stCodeBlock"] * {
 MINIO_ENDPOINT = "127.0.0.1:9100"
 ACCESS_KEY = "minioadmin"
 SECRET_KEY = "minioadmin"
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+LINUX_MINIO_BIN = os.path.join(BASE_DIR, "minio_bin_linux", "minio")
+MINIO_DATA_DIR = os.path.join(BASE_DIR, "minio_data")
+
+
+def _minio_is_up():
+    try:
+        with urllib.request.urlopen(f"http://{MINIO_ENDPOINT}/minio/health/live", timeout=2) as r:
+            return r.status == 200
+    except Exception:
+        return False
+
+
+@st.cache_resource
+def bootstrap_minio_if_needed():
+    """On a hosted deployment (e.g. Streamlit Community Cloud) there is no
+    separately-running MinIO server to connect to - unlike local development,
+    where start_project.bat launches minio_bin/minio.exe beforehand. In that
+    case, launch the bundled Linux MinIO binary as a background subprocess,
+    pointed at the dataset already committed in minio_data/, so the exact
+    same real dataset this project ships with is served with no live API
+    calls needed at startup. No-op if MinIO is already reachable (local dev)
+    or if not running on Linux (this binary won't execute on Windows)."""
+    if _minio_is_up():
+        return "already-running"
+    if platform.system() != "Linux":
+        return "not-linux"
+    if not os.path.exists(LINUX_MINIO_BIN):
+        return "binary-missing"
+
+    os.chmod(LINUX_MINIO_BIN, 0o755)
+    env = os.environ.copy()
+    env["MINIO_ROOT_USER"] = ACCESS_KEY
+    env["MINIO_ROOT_PASSWORD"] = SECRET_KEY
+    subprocess.Popen(
+        [LINUX_MINIO_BIN, "server", MINIO_DATA_DIR,
+         "--address", MINIO_ENDPOINT, "--console-address", "127.0.0.1:9101"],
+        env=env, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL
+    )
+    for _ in range(30):
+        if _minio_is_up():
+            return "bootstrapped"
+        time.sleep(1)
+    return "bootstrap-timeout"
+
+
+_bootstrap_status = bootstrap_minio_if_needed()
+if _bootstrap_status in ("binary-missing", "bootstrap-timeout"):
+    st.error(
+        f"Could not start the bundled MinIO server (status: {_bootstrap_status}). "
+        "If you're running this locally on Windows, start it first via `start_project.bat`."
+    )
+    st.stop()
+
 
 @st.cache_resource
 def get_client():

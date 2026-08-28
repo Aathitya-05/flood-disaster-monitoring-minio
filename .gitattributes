@@ -1,1 +1,2 @@
 minio_bin/*.exe filter=lfs diff=lfs merge=lfs -text
+minio_bin_linux/minio filter=lfs diff=lfs merge=lfs -text
