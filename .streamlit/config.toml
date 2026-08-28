@@ -1,0 +1,8 @@
+[client]
+# Hides Streamlit's own top-right "Deploy" button and hamburger menu for
+# everyone (owner and visitors alike) - this is the one piece of chrome
+# that lives inside the app itself and can actually be controlled here.
+# The separate Streamlit Community Cloud toolbar (Share/star/edit/GitHub/
+# "..."/Manage app) is hosting-platform chrome shown only to the logged-in
+# owner and cannot be hidden from this file - visitors never see it.
+toolbarMode = "viewer"

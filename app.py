@@ -438,6 +438,11 @@ code, pre, kbd, .stCodeBlock, [data-testid="stCodeBlock"] * {
         0 -1px 0 rgba(0,0,0,0.3) inset,
         0 0 18px rgba(57,135,229,0.15);
 }
+
+/* Hide the default "Made with Streamlit" footer for a cleaner, finished
+   look - this is inside the app's own DOM so it's actually reachable,
+   unlike the separate Streamlit Cloud owner toolbar. */
+footer[data-testid="stFooter"], footer { display: none !important; }
 </style>
 """, unsafe_allow_html=True)
 
