@@ -339,19 +339,6 @@ code, pre, kbd, .stCodeBlock, [data-testid="stCodeBlock"] * {
     box-shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 18px rgba(0,0,0,0.22);
 }
 
-/* Live pulse dot for the "S3 Storage Engine: Active" sidebar status */
-.fdm-live-dot {
-    display: inline-block; width: 8px; height: 8px; border-radius: 50%;
-    background: #0ca30c; margin-right: 6px;
-    box-shadow: 0 0 0 0 rgba(12,163,12,0.6);
-    animation: fdmPulse 1.8s cubic-bezier(.4,0,.6,1) infinite;
-}
-@keyframes fdmPulse {
-    0%   { box-shadow: 0 0 0 0 rgba(12,163,12,0.55); }
-    70%  { box-shadow: 0 0 0 8px rgba(12,163,12,0); }
-    100% { box-shadow: 0 0 0 0 rgba(12,163,12,0); }
-}
-
 /* Staggered entrance for column-based card/image grids across every page */
 [data-testid="column"] {
     animation: fdmCardIn 0.5s cubic-bezier(.2,.8,.2,1) backwards;
@@ -544,16 +531,6 @@ menu = st.sidebar.radio(
     label_visibility="collapsed"
 )
 
-st.sidebar.markdown("---")
-st.sidebar.markdown(
-    f'<div class="fdm-card" style="padding:14px 16px;margin-bottom:0;">'
-    f'<div style="font-size:0.85rem;line-height:1.7;">'
-    f'<strong>MinIO API:</strong> <code>http://{MINIO_ENDPOINT}</code><br/>'
-    f'<strong>MinIO Console:</strong> <code>http://127.0.0.1:9101</code><br/>'
-    f'<span class="fdm-live-dot"></span><strong>S3 Storage Engine:</strong> Active'
-    f'</div></div>',
-    unsafe_allow_html=True
-)
 
 # -------------------------------------------------------------
 # 1. Storage Overview & Buckets
