@@ -12,7 +12,6 @@ import subprocess
 import urllib.request
 import streamlit as st
 import pandas as pd
-from datetime import timedelta
 from minio import Minio
 from PIL import Image
 
@@ -434,9 +433,19 @@ footer[data-testid="stFooter"], footer { display: none !important; }
 """, unsafe_allow_html=True)
 
 # Connect to MinIO
+# Root credentials come from Streamlit's encrypted secrets store when
+# configured (Settings -> Secrets on share.streamlit.io), so the real
+# deployed instance never has to run on the well-known "minioadmin"
+# default. Falls back to that default for local development, where
+# MinIO is bound to loopback-only anyway (see bootstrap_minio_if_needed
+# below) and start_project.bat already uses the same default locally.
+try:
+    ACCESS_KEY = st.secrets.get("MINIO_ROOT_USER", "minioadmin")
+    SECRET_KEY = st.secrets.get("MINIO_ROOT_PASSWORD", "minioadmin")
+except Exception:
+    ACCESS_KEY, SECRET_KEY = "minioadmin", "minioadmin"
+
 MINIO_ENDPOINT = "127.0.0.1:9100"
-ACCESS_KEY = "minioadmin"
-SECRET_KEY = "minioadmin"
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 LINUX_MINIO_BIN = os.path.join(BASE_DIR, "minio_bin_linux", "minio")
@@ -676,8 +685,6 @@ elif menu == "🚁 Drone Aerial Surveillance":
     for idx, o in enumerate(objs):
         stat = client.stat_object("drone-videos", o.object_name)
         meta = stat.metadata
-
-        url = client.presigned_get_object("drone-videos", o.object_name, expires=timedelta(hours=1))
         frame_key = o.object_name + ".jpg"
 
         with grid[idx % 2]:
@@ -700,9 +707,22 @@ elif menu == "🚁 Drone Aerial Surveillance":
                 f"</ul>",
                 unsafe_allow_html=True
             )
-            with st.expander("🔗 Pre-Signed Secure Download URL"):
-                st.markdown(f"[Download / Stream Video]({url})")
-                st.code(url, language="bash")
+            # Proxied through Streamlit's own server rather than a presigned
+            # MinIO URL - MinIO stays bound to localhost/loopback and is
+            # never exposed to the internet, on this deployment or any future
+            # one; all object bytes flow through this one audited surface.
+            try:
+                video_res = client.get_object("drone-videos", o.object_name)
+                video_bytes = video_res.read()
+                video_res.close()
+                video_res.release_conn()
+                st.download_button(
+                    "⬇️ Download Mission Video", data=video_bytes,
+                    file_name=o.object_name.split("/")[-1], mime="video/mp4",
+                    key=f"dl_{o.object_name}"
+                )
+            except Exception:
+                st.caption("Video download unavailable")
             st.markdown('</div>', unsafe_allow_html=True)
 
 # -------------------------------------------------------------
