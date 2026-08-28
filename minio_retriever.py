@@ -14,6 +14,7 @@ from datetime import timedelta
 import pandas as pd
 from minio import Minio
 from minio.error import S3Error
+from crypto_utils import decrypt_bytes
 
 MINIO_ENDPOINT = "127.0.0.1:9100"
 ACCESS_KEY = "minioadmin"
@@ -96,7 +97,7 @@ def retrieve_water_level_sensor_data(client, target_district="Cuttack", threshol
     for obj in csv_objects:
         # Stream CSV object directly from MinIO into pandas dataframe without disk caching
         response = client.get_object(bucket, obj.object_name)
-        df = pd.read_csv(io.BytesIO(response.read()))
+        df = pd.read_csv(io.BytesIO(decrypt_bytes(response.read())))
         response.close()
         response.release_conn()
         
@@ -138,7 +139,7 @@ def retrieve_flood_alerts_by_date(client, target_date="2026-08-23", min_severity
     matching_alerts = []
     for obj in objects:
         response = client.get_object(bucket, obj.object_name)
-        payload = json.loads(response.read().decode("utf-8"))
+        payload = json.loads(decrypt_bytes(response.read()).decode("utf-8"))
         response.close()
         response.release_conn()
         

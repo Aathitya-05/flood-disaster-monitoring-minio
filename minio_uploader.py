@@ -8,11 +8,13 @@ Implements Task 2, Task 3, and Task 4:
 """
 
 import os
+import io
 import json
 import glob
 from minio import Minio
 from minio.error import S3Error
 from minio.commonconfig import Tags
+from crypto_utils import encrypt_bytes
 
 MINIO_ENDPOINT = "127.0.0.1:9100"
 ACCESS_KEY = "minioadmin"
@@ -38,6 +40,30 @@ def get_minio_client():
         secret_key=SECRET_KEY,
         secure=False
     )
+
+
+def upload_encrypted_file(client, bucket, object_name, file_path, metadata, tags=None):
+    """Encrypts a local file's bytes with AES-256-GCM (see crypto_utils.py -
+    MinIO's own server-side encryption needs an external KMS this project
+    doesn't run) and uploads the ciphertext. The body stored in MinIO is
+    never the real plaintext bytes; `file-type` in metadata preserves what
+    it decrypts back into, since the S3 content-type header can no longer
+    reflect it (it's ciphertext, not really JPEG/MP4/CSV/JSON anymore)."""
+    with open(file_path, "rb") as f:
+        plaintext = f.read()
+    ciphertext = encrypt_bytes(plaintext)
+    metadata = dict(metadata)
+    metadata["encryption"] = "AES-256-GCM"
+    client.put_object(
+        bucket_name=bucket,
+        object_name=object_name,
+        data=io.BytesIO(ciphertext),
+        length=len(ciphertext),
+        content_type="application/octet-stream",
+        metadata=metadata
+    )
+    if tags is not None:
+        client.set_object_tags(bucket, object_name, tags)
 
 def initialize_buckets(client):
     """Task 2 & 3: Creates buckets if they don't exist."""
@@ -86,16 +112,9 @@ def upload_satellite_images(client):
                 tags["FloodLevel"] = mdata.get("Flood_Level", "")
 
         object_name = f"raw/{mdata.get('District', 'General')}/{fname}"
-        
-        client.fput_object(
-            bucket_name=bucket,
-            object_name=object_name,
-            file_path=fpath,
-            content_type="image/jpeg",
-            metadata=metadata
-        )
-        client.set_object_tags(bucket, object_name, tags)
-        print(f"  -> Uploaded {object_name} [Metadata: FloodLevel={metadata.get('flood-level')}, District={metadata.get('district')}]")
+
+        upload_encrypted_file(client, bucket, object_name, fpath, metadata, tags)
+        print(f"  -> Uploaded {object_name} (encrypted) [Metadata: FloodLevel={metadata.get('flood-level')}, District={metadata.get('district')}]")
 
 def upload_drone_videos(client):
     bucket = "drone-videos"
@@ -134,26 +153,13 @@ def upload_drone_videos(client):
                 tags["Severity"] = mdata.get("Severity", "")
 
         object_name = f"aerial/{mdata.get('District', 'General')}/{fname}"
-        client.fput_object(
-            bucket_name=bucket,
-            object_name=object_name,
-            file_path=fpath,
-            content_type="video/mp4",
-            metadata=metadata
-        )
-        client.set_object_tags(bucket, object_name, tags)
-        
+        upload_encrypted_file(client, bucket, object_name, fpath, metadata, tags)
+
         frame_path = fpath + ".jpg"
         if os.path.exists(frame_path):
             frame_obj = f"aerial/{mdata.get('District', 'General')}/{fname}.jpg"
-            client.fput_object(
-                bucket_name=bucket,
-                object_name=frame_obj,
-                file_path=frame_path,
-                content_type="image/jpeg",
-                metadata=metadata
-            )
-        print(f"  -> Uploaded {object_name} [Metadata: DroneID={metadata.get('sensor-id')}, District={metadata.get('district')}]")
+            upload_encrypted_file(client, bucket, frame_obj, frame_path, metadata)
+        print(f"  -> Uploaded {object_name} (encrypted) [Metadata: DroneID={metadata.get('sensor-id')}, District={metadata.get('district')}]")
 
 def upload_sensor_data(client):
     bucket = "sensor-data"
@@ -189,15 +195,8 @@ def upload_sensor_data(client):
                 tags["Severity"] = mdata.get("Severity", "")
 
         object_name = f"telemetry/{mdata.get('District', 'General')}/{fname}"
-        client.fput_object(
-            bucket_name=bucket,
-            object_name=object_name,
-            file_path=fpath,
-            content_type="text/csv",
-            metadata=metadata
-        )
-        client.set_object_tags(bucket, object_name, tags)
-        print(f"  -> Uploaded {object_name} [Metadata: SensorID={metadata.get('sensor-id')}, MaxLevel={metadata.get('max-water-level')}m]")
+        upload_encrypted_file(client, bucket, object_name, fpath, metadata, tags)
+        print(f"  -> Uploaded {object_name} (encrypted) [Metadata: SensorID={metadata.get('sensor-id')}, MaxLevel={metadata.get('max-water-level')}m]")
 
 def upload_weather_reports(client):
     bucket = "weather-reports"
@@ -229,15 +228,8 @@ def upload_weather_reports(client):
                 tags["StationID"] = mdata.get("Station_ID", "")
 
         object_name = f"forecasts/{mdata.get('District', 'General')}/{fname}"
-        client.fput_object(
-            bucket_name=bucket,
-            object_name=object_name,
-            file_path=fpath,
-            content_type="application/json",
-            metadata=metadata
-        )
-        client.set_object_tags(bucket, object_name, tags)
-        print(f"  -> Uploaded {object_name} [Metadata: StationID={metadata.get('sensor-id')}, Severity={metadata.get('severity')}]")
+        upload_encrypted_file(client, bucket, object_name, fpath, metadata, tags)
+        print(f"  -> Uploaded {object_name} (encrypted) [Metadata: StationID={metadata.get('sensor-id')}, Severity={metadata.get('severity')}]")
 
 def upload_emergency_alerts(client):
     bucket = "emergency-alerts"
@@ -270,15 +262,8 @@ def upload_emergency_alerts(client):
                 tags["Severity"] = mdata.get("Severity", "")
 
         object_name = f"bulletins/{mdata.get('Timestamp', 'archive')}/{fname}"
-        client.fput_object(
-            bucket_name=bucket,
-            object_name=object_name,
-            file_path=fpath,
-            content_type="application/json",
-            metadata=metadata
-        )
-        client.set_object_tags(bucket, object_name, tags)
-        print(f"  -> Uploaded {object_name} [Metadata: AlertID={metadata.get('sensor-id')}, Date={metadata.get('timestamp')}]")
+        upload_encrypted_file(client, bucket, object_name, fpath, metadata, tags)
+        print(f"  -> Uploaded {object_name} (encrypted) [Metadata: AlertID={metadata.get('sensor-id')}, Date={metadata.get('timestamp')}]")
 
 def verify_storage(client):
     """Task 2: Verifies storage integrity and prints bucket audit."""

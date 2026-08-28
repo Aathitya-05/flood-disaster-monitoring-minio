@@ -13,6 +13,7 @@ import pandas as pd
 from PIL import Image
 from minio import Minio
 from minio.error import S3Error
+from crypto_utils import decrypt_bytes
 
 MINIO_ENDPOINT = "127.0.0.1:9100"
 ACCESS_KEY = "minioadmin"
@@ -78,14 +79,19 @@ def audit_and_clean_buckets(client):
                 print(f"    [FAIL] Object '{obj.object_name}' is missing required metadata: {missing_keys}")
                 bucket_passed = False
                 overall_passed = False
-                
-            # 3. Check Payload Integrity
+
+            if meta.get("x-amz-meta-encryption") != "AES-256-GCM":
+                print(f"    [FAIL] Object '{obj.object_name}' is not encrypted (expected AES-256-GCM)")
+                bucket_passed = False
+                overall_passed = False
+
+            # 3. Check Payload Integrity (decrypt first - the stored body is ciphertext)
             try:
                 response = client.get_object(bucket, obj.object_name)
-                data_bytes = response.read()
+                data_bytes = decrypt_bytes(response.read())
                 response.close()
                 response.release_conn()
-                
+
                 if obj.object_name.endswith(".json"):
                     parsed = json.loads(data_bytes.decode("utf-8"))
                     if not isinstance(parsed, (dict, list)):

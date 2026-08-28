@@ -14,6 +14,7 @@ import streamlit as st
 import pandas as pd
 from minio import Minio
 from PIL import Image
+from crypto_utils import decrypt_bytes
 
 st.set_page_config(
     page_title="Flood Disaster Monitoring System | MinIO",
@@ -445,6 +446,22 @@ try:
 except Exception:
     ACCESS_KEY, SECRET_KEY = "minioadmin", "minioadmin"
 
+# Same pattern for the object-body encryption key (crypto_utils.py) - a
+# secret set here must match whatever key the data was actually
+# encrypted under (minio_uploader.py), otherwise decryption fails.
+try:
+    _OBJECT_ENC_KEY_B64 = st.secrets.get("OBJECT_ENC_KEY", None)
+except Exception:
+    _OBJECT_ENC_KEY_B64 = None
+
+import base64 as _base64
+OBJECT_ENC_KEY = _base64.b64decode(_OBJECT_ENC_KEY_B64) if _OBJECT_ENC_KEY_B64 else None  # None -> crypto_utils default
+
+
+def decrypt_object(blob: bytes) -> bytes:
+    return decrypt_bytes(blob, key=OBJECT_ENC_KEY)
+
+
 MINIO_ENDPOINT = "127.0.0.1:9100"
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -647,9 +664,9 @@ elif menu == "🛰️ Satellite Flood Maps":
         stat = client.stat_object("satellite-images", o.object_name)
         meta = stat.metadata
 
-        # Read image
+        # Read and decrypt image (stored as AES-256-GCM ciphertext, not a real JPEG)
         response = client.get_object("satellite-images", o.object_name)
-        img_bytes = response.read()
+        img_bytes = decrypt_object(response.read())
         response.close()
         response.release_conn()
         img = Image.open(io.BytesIO(img_bytes))
@@ -691,7 +708,7 @@ elif menu == "🚁 Drone Aerial Surveillance":
             st.markdown('<div class="fdm-card">', unsafe_allow_html=True)
             try:
                 frame_res = client.get_object("drone-videos", frame_key)
-                fimg = Image.open(io.BytesIO(frame_res.read()))
+                fimg = Image.open(io.BytesIO(decrypt_object(frame_res.read())))
                 frame_res.close()
                 frame_res.release_conn()
                 st.image(fimg, caption="Mission Reconnaissance Keyframe", use_container_width=True)
@@ -713,7 +730,7 @@ elif menu == "🚁 Drone Aerial Surveillance":
             # one; all object bytes flow through this one audited surface.
             try:
                 video_res = client.get_object("drone-videos", o.object_name)
-                video_bytes = video_res.read()
+                video_bytes = decrypt_object(video_res.read())
                 video_res.close()
                 video_res.release_conn()
                 st.download_button(
@@ -743,7 +760,7 @@ elif menu == "🌊 IoT Sensor Telemetry":
         meta = stat.metadata
 
         res = client.get_object("sensor-data", o.object_name)
-        df = pd.read_csv(io.BytesIO(res.read()))
+        df = pd.read_csv(io.BytesIO(decrypt_object(res.read())))
         res.close()
         res.release_conn()
 
@@ -783,7 +800,7 @@ elif menu == "🌦️ Weather Radar Reports":
     by_district = {}
     for o in objs:
         res = client.get_object("weather-reports", o.object_name)
-        data = json.loads(res.read().decode("utf-8"))
+        data = json.loads(decrypt_object(res.read()).decode("utf-8"))
         res.close()
         res.release_conn()
         by_district.setdefault(data.get("district", "Unknown"), []).append(data)
@@ -847,7 +864,7 @@ elif menu == "🚨 Emergency Alert Bulletins":
     st.markdown(f'<p style="color:var(--ink-muted);font-size:0.88rem;margin-bottom:14px;">Retrieved <strong style="color:var(--ink);">{len(objs)}</strong> official alert bulletins for <strong style="color:var(--ink);">{target_date}</strong></p>', unsafe_allow_html=True)
     for o in objs:
         res = client.get_object("emergency-alerts", o.object_name)
-        payload = json.loads(res.read().decode("utf-8"))
+        payload = json.loads(decrypt_object(res.read()).decode("utf-8"))
         res.close()
         res.release_conn()
 
